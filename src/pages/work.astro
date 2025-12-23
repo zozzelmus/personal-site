@@ -1,0 +1,223 @@
+---
+import Layout from "../layouts/Layout.astro"
+import Nav from "../components/Nav.astro"
+import Footer from "../components/Footer.astro"
+---
+
+<Layout>
+    <Nav />
+    <main class="work-container">
+        <section class="work-header">
+            <h1>Work</h1>
+            <p>A selection of projects and experiences that showcase my expertise in building scalable web applications and distributed systems.</p>
+        </section>
+
+        <section class="work-grid">
+            <article class="work-card">
+                <div class="work-card-header">
+                    <h3>Calculator Compilier</h3>
+                    <span class="work-date">2025</span>
+                </div>
+                <p class="work-description">A basic compilier written in C#. Functions as a calculator but shares concepts with tokenizing string to actions.</p>
+                <div class="work-tags">
+                    <span class="tag">C#</span>
+                    <span class="tag">Lexers</span>
+                    <span class="tag">Compilers</span>
+                </div>
+                <a href="https://github.com/zozzelmus/LiteralCompiler" target="_blank" class="project-link">View Details →</a>
+            </article>
+
+            <article class="work-card">
+                <div class="work-card-header">
+                    <h3>Web Link Shortener</h3>
+                    <span class="work-date">2025</span>
+                </div>
+                <p class="work-description">Basic Webapi using REST APIs to shorten links for the requester.</p>
+                <div class="work-tags">
+                    <span class="tag">Entity Framework Core</span>
+                    <span class="tag">C#</span>
+                    <span class="tag">ASP.NET</span>
+                    <span class="tag">Postgress</span>
+                </div>
+                <a href="https://github.com/zozzelmus/WebLinkShortener" target="_blank" class="project-link">View Details →</a>
+            </article>
+
+            <article class="work-card">
+                <div class="work-card-header">
+                    <h3>Longnight</h3>
+                    <span class="work-date">2024</span>
+                </div>
+                <p class="work-description">Half finished project using Unity. Ligninght was my biggest video game project which was a Silent Hill style game.</p>
+                <div class="work-tags">
+                    <span class="tag">C#</span>
+                    <span class="tag">Unity</span>
+                    <span class="tag">Data Structures</span>
+                </div>
+                <a href="https://github.com/zozzelmus/longnight" target="_blank" class="project-link">View Details →</a>
+            </article>
+
+            <article class="work-card">
+                <div class="work-card-header">
+                    <h3>Portfolio</h3>
+                    <span class="work-date">2025</span>
+                </div>
+                <p class="work-description">Contains several smaller template and POC style code things I work on for demo purposes for work.</p>
+                <div class="work-tags">
+                    <span class="tag">C#</span>
+                    <span class="tag">WebApis</span>
+                    <span class="tag">Clean Architecture</span>
+                    <span class="tag">Mass Transit</span>
+                </div>
+                <a href="https://github.com/zozzelmus/Portfolio" target="_blank" class="project-link">View Details →</a>
+            </article>
+        </section>
+    </main>
+    <Footer />
+</Layout>
+
+<style>
+    .work-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 50px 20px;
+        flex: 1;
+    }
+
+    .work-header {
+        margin-bottom: 100px;
+        text-align: center;
+    }
+
+    .work-header h1 {
+        font-size: 4rem;
+        font-weight: 800;
+        margin: 0 0 20px 0;
+        background: linear-gradient(135deg, #1d1d1f 0%, #555 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: -1px;
+    }
+
+    .work-header p {
+        font-size: 1.15rem;
+        color: #666;
+        max-width: 650px;
+        margin: 0 auto;
+        line-height: 1.8;
+        font-weight: 400;
+    }
+
+    .work-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 32px;
+    }
+
+    .work-card {
+        background: white;
+        border: 1px solid #e5e5e7;
+        border-radius: 16px;
+        padding: 32px;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .work-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #007aff, #bc52ee);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s ease;
+    }
+
+    .work-card:hover {
+        border-color: #e5e5e7;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        transform: translateY(-8px);
+    }
+
+    .work-card:hover::before {
+        transform: scaleX(1);
+    }
+
+    .work-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 16px;
+    }
+
+    .work-card h3 {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #1d1d1f;
+        margin: 0;
+        letter-spacing: -0.5px;
+    }
+
+    .work-date {
+        color: #999;
+        font-size: 0.85rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .work-description {
+        color: #666;
+        line-height: 1.8;
+        margin-bottom: 24px;
+        font-size: 0.975rem;
+    }
+
+    .work-tags {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .project-link {
+		color: #007aff;
+		text-decoration: none;
+		font-weight: 700;
+		padding-top: 20px;
+		transition: all 0.3s ease;
+		display: inline-block;
+	}
+
+    .tag {
+        background: linear-gradient(135deg, #f5f5f7 0%, #efefef 100%);
+        color: #555;
+        padding: 5px 14px;
+        border-radius: 24px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: 1px solid #e5e5e7;
+    }
+
+    .work-card:hover .tag {
+        background: linear-gradient(135deg, #007aff 0%, #0051d5 100%);
+        color: white;
+        border-color: transparent;
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+        .work-header h1 {
+            font-size: 2.8rem;
+        }
+
+        .work-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

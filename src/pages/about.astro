@@ -1,0 +1,210 @@
+---
+import Layout from "../layouts/Layout.astro"
+import Nav from "../components/Nav.astro"
+import Footer from "../components/Footer.astro"
+---
+
+<Layout>
+    <Nav />
+    <main class="about-container">
+        <section class="about-header">
+            <h1>About Me</h1>
+        </section>
+
+        <section class="about-content">
+            <div class="about-text">
+                <h2>Hey there</h2>
+                <p>
+                    My name is Brandon Parker. I am a career software engineer and computer enthusiest.
+                    My start was in video game development at a young age from around 12 and I kept writting code ever since.
+                    After winning my first state competition in highschool, I decided software engineering was the career path I wanted to follow.
+                </p>
+
+                <h3>What I Do</h3>
+                <ul class="about-list">
+                    <li><strong>Web Development:</strong> Build websites using an angular frontend.</li>
+                    <li><strong>Backend Systems:</strong> Create horizontally scalable decoupled projects that allow for pivoting at any point using .NET.</li>
+                    <li><strong>Database Design:</strong> Entry level understanding of relational database architecture.</li>
+                    <li><strong>Telemetry:</strong> Have built dashboards via Splunk for distributed system tracing.</li>
+                </ul>
+
+                <h3>When I'm Not Coding</h3>
+                <p>
+                    I enjoy exploring new technologies, playing video games, taking care of my beutiful cat and playing card games with my friends. 
+                    Recently I have gotten into travel in order to experience different cultures and explore the world!
+                </p>
+            </div>
+
+            <div class="about-sidebar">
+                <div class="about-card">
+                    <h4>Skills</h4>
+                    <div class="tech-list">
+                        <span class="tech-item">TypeScript</span>
+                        <span class="tech-item">Angular</span>
+                        <span class="tech-item">C#</span>
+                        <span class="tech-item">Rust</span>
+                        <span class="tech-item">MSSQL</span>
+                        <span class="tech-item">Redis</span>
+                        <span class="tech-item">Kafka</span>
+                        <span class="tech-item">ASP.NET</span>
+                        <span class="tech-item">Python</span>
+                        <span class="tech-item">Docker</span>
+                        <span class="tech-item">Splunk</span>
+                        <span class="tech-item">AWS/ Azure</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <Footer />
+</Layout>
+
+<style>
+    .about-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 50px 20px;
+        flex: 1;
+    }
+
+    .about-header {
+        text-align: center;
+        margin-bottom: 100px;
+    }
+
+    .about-header h1 {
+        font-size: 4rem;
+        font-weight: 800;
+        margin: 0;
+        background: linear-gradient(135deg, #1d1d1f 0%, #555 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: -1px;
+    }
+
+    .about-content {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 80px;
+        align-items: start;
+    }
+
+    .about-text h2 {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #1d1d1f;
+        margin: 0 0 20px 0;
+        letter-spacing: -0.5px;
+    }
+
+    .about-text h3 {
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: #1d1d1f;
+        margin: 50px 0 20px 0;
+        letter-spacing: -0.5px;
+    }
+
+    .about-text p {
+        color: #666;
+        line-height: 1.9;
+        font-size: 1rem;
+        margin-bottom: 24px;
+    }
+
+    .about-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .about-list li {
+        color: #666;
+        line-height: 1.9;
+        margin-bottom: 18px;
+        padding-left: 0;
+        font-size: 0.975rem;
+    }
+
+    .about-card {
+        background: white;
+        border: 1px solid #e5e5e7;
+        border-radius: 16px;
+        padding: 28px;
+        margin-bottom: 24px;
+        transition: all 0.3s ease;
+    }
+
+    .about-card:hover {
+        border-color: #007aff;
+        box-shadow: 0 12px 32px rgba(0, 122, 255, 0.12);
+    }
+
+    .about-card h4 {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #1d1d1f;
+        margin: 0 0 16px 0;
+        letter-spacing: -0.3px;
+    }
+
+    .tech-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .tech-item {
+        background: linear-gradient(135deg, #f5f5f7 0%, #efefef 100%);
+        color: #666;
+        padding: 7px 15px;
+        border-radius: 24px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        border: 1px solid #e5e5e7;
+        transition: all 0.3s ease;
+    }
+
+    .about-card:hover .tech-item {
+        border-color: #007aff;
+        color: #007aff;
+    }
+
+    .available-status {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #666;
+        margin: 0;
+        font-weight: 500;
+    }
+
+    .status-dot {
+        width: 8px;
+        height: 8px;
+        background-color: #10b981;
+        border-radius: 50%;
+        box-shadow: 0 0 8px #10b981;
+        flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+        .about-header h1 {
+            font-size: 2.8rem;
+        }
+
+        .about-container {
+            padding: 80px 16px;
+        }
+
+        .about-content {
+            grid-template-columns: 1fr;
+            gap: 60px;
+        }
+
+        .about-text h2 {
+            font-size: 1.8rem;
+        }
+    }
+</style>

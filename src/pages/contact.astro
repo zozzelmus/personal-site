@@ -1,0 +1,274 @@
+---
+import Layout from "../layouts/Layout.astro"
+import Nav from "../components/Nav.astro"
+import Footer from "../components/Footer.astro"
+---
+
+<Layout>
+    <Nav />
+    <main class="contact-container">
+        <section class="contact-header">
+            <h1>Contact Me</h1>
+            <p>Currently accepting open source project requests, learning oppurtunities, and research oppurtunities.</p>
+        </section>
+
+        <section class="contact-content">
+            <div class="contact-form-wrapper">
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="6" required></textarea>
+                    </div>
+
+                    <button disabled="true" type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+
+            <div class="contact-info">
+                <div class="contact-card">
+                    <h3>Email</h3>
+                    <p>brandonparker.tech@gmail.com</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <Footer />
+</Layout>
+
+<style>
+    .contact-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 100px 20px;
+        flex: 1;
+    }
+
+    .contact-header {
+        text-align: center;
+        margin-bottom: 100px;
+    }
+
+    .contact-header h1 {
+        font-size: 4rem;
+        font-weight: 800;
+        margin: 0 0 20px 0;
+        background: linear-gradient(135deg, #1d1d1f 0%, #555 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: -1px;
+    }
+
+    .contact-header p {
+        font-size: 1.15rem;
+        color: #666;
+        margin: 0;
+        font-weight: 400;
+    }
+
+    .contact-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: start;
+    }
+
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group label {
+        font-weight: 700;
+        color: #1d1d1f;
+        margin-bottom: 10px;
+        font-size: 0.95rem;
+        letter-spacing: -0.3px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        padding: 14px 18px;
+        border: 1.5px solid #e5e5e7;
+        border-radius: 12px;
+        font-family: inherit;
+        font-size: 1rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        color: #1d1d1f;
+        background: white;
+    }
+
+    .form-group input:hover,
+    .form-group textarea:hover {
+        border-color: #d5d5d7;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: #007aff;
+        box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.12);
+        background: white;
+    }
+
+    .form-group textarea {
+        resize: vertical;
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .submit-btn {
+        background: linear-gradient(135deg, #007aff 0%, #0051d5 100%);
+        color: white;
+        padding: 14px 32px;
+        border: none;
+        border-radius: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        font-size: 1rem;
+        letter-spacing: -0.3px;
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(0, 122, 255, 0.25);
+    }
+
+    .submit-btn:active {
+        transform: translateY(0);
+    }
+
+    .submit-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        background: linear-gradient(135deg, #999 0%, #666 100%);
+    }
+
+    .submit-btn:disabled:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .contact-card {
+        background: white;
+        border: 1px solid #e5e5e7;
+        border-radius: 16px;
+        padding: 28px;
+        transition: all 0.3s ease;
+    }
+
+    .contact-card:hover {
+        border-color: #007aff;
+        box-shadow: 0 12px 32px rgba(0, 122, 255, 0.12);
+    }
+
+    .contact-card h3 {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #1d1d1f;
+        margin: 0 0 12px 0;
+        letter-spacing: -0.3px;
+    }
+
+    .contact-card p {
+        color: #666;
+        margin-bottom: 12px;
+        font-size: 0.95rem;
+    }
+
+    .contact-link {
+        color: #007aff;
+        text-decoration: none;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .contact-link:hover {
+        color: #0051d5;
+    }
+
+    .social-links {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .social-link {
+        color: #007aff;
+        text-decoration: none;
+        padding: 9px 16px;
+        border: 1.5px solid #e5e5e7;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+        background: #007aff;
+        color: white;
+        border-color: #007aff;
+    }
+
+    .status-dot {
+        width: 8px;
+        height: 8px;
+        background-color: #10b981;
+        border-radius: 50%;
+        box-shadow: 0 0 8px #10b981;
+        display: inline-block;
+        margin-right: 8px;
+        flex-shrink: 0;
+    }
+
+    .availability-text {
+        font-size: 0.85rem;
+        color: #999;
+        margin: 8px 0 0 0;
+    }
+
+    @media (max-width: 768px) {
+        .contact-header h1 {
+            font-size: 2.8rem;
+        }
+
+        .contact-container {
+            padding: 80px 16px;
+        }
+
+        .contact-content {
+            grid-template-columns: 1fr;
+            gap: 60px;
+        }
+    }
+</style>
