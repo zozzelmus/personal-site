@@ -2,6 +2,10 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import SkillsShowcase from '../components/SkillsShowcase.astro';
+import { getFeaturedProjects } from '../data/projects';
+
+const featuredProjects = getFeaturedProjects();
 ---
 
 <Layout>
@@ -10,56 +14,67 @@ import Footer from '../components/Footer.astro';
 		<!-- Hero Section -->
 		<section class="hero">
 			<div class="hero-content">
-				<h1 class="hero-title">Welcome to My Personal Site</h1>
-				<p class="hero-subtitle">Creator of simple, tasteful, and modular systems at that work at scale with a little bit of game development.</p>
+				<div class="terminal-prompt">
+					<span class="prompt-symbol">&gt;</span>
+					<span class="prompt-text">Hello, I'm Brandon</span>
+					<span class="cursor">_</span>
+				</div>
+				<h1 class="hero-title">Software Engineer</h1>
+				<p class="hero-subtitle">Creator of simple, tasteful, and modular systems that work at scale with a little bit of game development.</p>
 				<div class="hero-ctas">
-					<a href="/work" class="cta-primary">View My Work</a>
-					<a href="/contact" class="cta-secondary">Get In Touch</a>
+					<a href="/work" class="cta-primary">
+						View My Work
+					</a>
+					<a href="/contact" class="cta-secondary">
+						Get In Touch
+					</a>
 				</div>
 			</div>
-			<div class="hero-background"></div>
 		</section>
+
+		<!-- Skills Showcase -->
+		<SkillsShowcase />
 
 		<!-- Featured Projects -->
 		<section class="featured-projects">
 			<div class="section-header">
-				<h2>Featured Projects</h2>
+				<div class="section-tag">// featured</div>
+				<h2>Projects</h2>
 				<p>A selection of recent work showcasing diverse technical skills</p>
 			</div>
 
 			<div class="projects-grid">
-				<article class="project-card">
-					<div class="project-header">
-						<h3>Web Link Shortener</h3>
-						<span class="year">2025</span>
-					</div>
-					<p class="project-desc">Basic Web APIs using REST APIs to shorten links for the requester.</p>
-					<div class="project-tags">
-                    <span>Entity Framework Core</span>
-                    <span>C#</span>
-                    <span>ASP.NET</span>
-                    <span>Postgresql</span>
-					</div>
-					<a href="/work" class="project-link">View Details →</a>
-				</article>
-
-				<article class="project-card">
-					<div class="project-header">
-						<h3>Calculator Compiler</h3>
-						<span class="year">2025</span>
-					</div>
-					<p class="project-desc">A basic compiler written in C#. Functions as a calculator but shares concepts with tokenizing string to actions.</p>
-					<div class="project-tags">
-                    <span>C#</span>
-                    <span>Lexers</span>
-                    <span>Compilers</span>
-					</div>
-					<a href="/work" class="project-link">View Details →</a>
-				</article>
+				{featuredProjects.map((project) => (
+					<article class="project-card">
+						<div class="card-line-numbers">
+							<span>01</span>
+							<span>02</span>
+							<span>03</span>
+							<span>04</span>
+						</div>
+						<div class="card-content">
+							<div class="project-header">
+								<h3>{project.title}</h3>
+								<span class="year">/* {project.year} */</span>
+							</div>
+							<p class="project-desc">{project.description}</p>
+							<div class="project-tags">
+								{project.skills.map((skill) => (
+									<span>{skill}</span>
+								))}
+							</div>
+							<a href={project.githubUrl} target="_blank" class="project-link">
+								View on GitHub <span class="link-arrow">&rarr;</span>
+							</a>
+						</div>
+					</article>
+				))}
 			</div>
 
 			<div class="view-all">
-				<a href="/work" class="view-all-btn">View All Projects</a>
+				<a href="/work" class="view-all-btn">
+					View All Projects
+				</a>
 			</div>
 		</section>
 	</main>
@@ -67,7 +82,6 @@ import Footer from '../components/Footer.astro';
 </Layout>
 
 <style>
-
 	.home-container {
 		padding: 0 20px;
 	}
@@ -75,19 +89,12 @@ import Footer from '../components/Footer.astro';
 	/* Hero Section */
 	.hero {
 		position: relative;
-		min-height: 600px;
+		min-height: 500px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		overflow: hidden;
 		padding-top: 80px;
-	}
-
-	.hero-background {
-		position: absolute;
-		inset: 0;
-		background: linear-gradient(135deg, rgba(0, 122, 255, 0.08) 0%, rgba(188, 82, 238, 0.08) 100%);
-		z-index: -1;
 	}
 
 	.hero-content {
@@ -107,18 +114,50 @@ import Footer from '../components/Footer.astro';
 		}
 	}
 
+	.terminal-prompt {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		background: #21262d;
+		padding: 8px 20px;
+		border-radius: 6px;
+		margin-bottom: 24px;
+		font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
+		border: 1px solid #30363d;
+	}
+
+	.prompt-symbol {
+		color: #3fb950;
+		font-weight: bold;
+	}
+
+	.prompt-text {
+		color: #79c0ff;
+	}
+
+	.cursor {
+		color: #3fb950;
+		animation: blink 1s step-end infinite;
+	}
+
+	@keyframes blink {
+		0%, 100% { opacity: 1; }
+		50% { opacity: 0; }
+	}
+
 	.hero-title {
 		font-size: 3.5rem;
 		font-weight: 800;
-		color: #1d1d1f;
+		color: #f0f6fc;
 		margin: 0 0 24px 0;
 		line-height: 1.2;
 		letter-spacing: -1.5px;
+		font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
 	}
 
 	.hero-subtitle {
 		font-size: 1.2rem;
-		color: #666;
+		color: #8b949e;
 		margin: 0 0 40px 0;
 		line-height: 1.8;
 		font-weight: 400;
@@ -132,59 +171,78 @@ import Footer from '../components/Footer.astro';
 	}
 
 	.cta-primary {
-		display: inline-block;
-		background: linear-gradient(135deg, #007aff 0%, #0051d5 100%);
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		background: linear-gradient(135deg, #238636 0%, #2ea043 100%);
 		color: white;
-		padding: 16px 40px;
-		border-radius: 12px;
+		padding: 14px 32px;
+		border-radius: 8px;
 		text-decoration: none;
-		font-weight: 700;
-		font-size: 1rem;
+		font-weight: 600;
+		font-size: 0.95rem;
+		font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
 		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-		box-shadow: 0 8px 24px rgba(0, 122, 255, 0.3);
+		border: 1px solid #238636;
 	}
 
 	.cta-primary:hover {
 		transform: translateY(-2px);
-		box-shadow: 0 12px 32px rgba(0, 122, 255, 0.4);
+		box-shadow: 0 8px 24px rgba(35, 134, 54, 0.4);
+	}
+
+	.cta-icon {
+		opacity: 0.7;
 	}
 
 	.cta-secondary {
-		display: inline-block;
-		background: white;
-		color: #007aff;
-		padding: 16px 40px;
-		border-radius: 12px;
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		background: transparent;
+		color: #8b949e;
+		padding: 14px 32px;
+		border-radius: 8px;
 		text-decoration: none;
-		font-weight: 700;
-		font-size: 1rem;
-		border: 2px solid #007aff;
+		font-weight: 600;
+		font-size: 0.95rem;
+		font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
+		border: 1px solid #30363d;
 		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	}
 
 	.cta-secondary:hover {
-		background: #007aff;
-		color: white;
+		background: #21262d;
+		color: #f0f6fc;
+		border-color: #8b949e;
 		transform: translateY(-2px);
 	}
 
 	/* Section Header */
 	.section-header {
 		text-align: center;
-		margin-bottom: 80px;
+		margin-bottom: 60px;
+	}
+
+	.section-tag {
+		color: #3fb950;
+		font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
+		font-size: 0.9rem;
+		margin-bottom: 12px;
 	}
 
 	.section-header h2 {
-		font-size: 3rem;
-		font-weight: 800;
-		color: #1d1d1f;
+		font-size: 2.5rem;
+		font-weight: 700;
+		color: #f0f6fc;
 		margin: 0 0 16px 0;
 		letter-spacing: -1px;
+		font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
 	}
 
 	.section-header p {
 		font-size: 1.1rem;
-		color: #666;
+		color: #8b949e;
 		margin: 0;
 		font-weight: 400;
 	}
@@ -193,26 +251,24 @@ import Footer from '../components/Footer.astro';
 	.featured-projects {
 		max-width: 1200px;
 		margin: 0 auto;
-		padding: 100px 20px;
+		padding: 60px 20px 100px;
 	}
 
 	.projects-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-		gap: 32px;
+		grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+		gap: 24px;
 		margin-bottom: 60px;
 	}
 
 	.project-card {
-		background: white;
-		border: 1px solid #e5e5e7;
-		border-radius: 16px;
-		padding: 32px;
-		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		background: #161b22;
+		border: 1px solid #30363d;
+		border-radius: 12px;
 		display: flex;
-		flex-direction: column;
-		position: relative;
 		overflow: hidden;
+		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		position: relative;
 	}
 
 	.project-card::before {
@@ -221,51 +277,73 @@ import Footer from '../components/Footer.astro';
 		top: 0;
 		left: 0;
 		right: 0;
-		height: 3px;
-		background: linear-gradient(90deg, #007aff, #bc52ee);
+		height: 2px;
+		background: linear-gradient(90deg, #3fb950, #58a6ff);
 		transform: scaleX(0);
 		transform-origin: left;
 		transition: transform 0.4s ease;
 	}
 
 	.project-card:hover {
-		border-color: #e5e5e7;
-		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-		transform: translateY(-8px);
+		border-color: #3fb950;
+		box-shadow:
+			0 0 0 1px rgba(63, 185, 80, 0.3),
+			0 16px 32px rgba(0, 0, 0, 0.3);
+		transform: translateY(-4px);
 	}
 
 	.project-card:hover::before {
 		transform: scaleX(1);
 	}
 
+	.card-line-numbers {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+		padding: 24px 12px;
+		background: #0d1117;
+		border-right: 1px solid #21262d;
+		font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
+		font-size: 0.75rem;
+		color: #484f58;
+		text-align: right;
+	}
+
+	.card-content {
+		padding: 24px;
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+	}
+
 	.project-header {
 		display: flex;
 		justify-content: space-between;
 		align-items: flex-start;
-		margin-bottom: 16px;
+		margin-bottom: 12px;
+		flex-wrap: wrap;
+		gap: 8px;
 	}
 
 	.project-card h3 {
-		font-size: 1.4rem;
-		font-weight: 700;
-		color: #1d1d1f;
+		font-size: 1.25rem;
+		font-weight: 600;
+		color: #f0f6fc;
 		margin: 0;
-		letter-spacing: -0.5px;
+		font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
 	}
 
 	.year {
-		color: #999;
-		font-size: 0.85rem;
-		font-weight: 500;
-		text-transform: uppercase;
-		letter-spacing: 0.5px;
+		color: #484f58;
+		font-size: 0.8rem;
+		font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
 	}
 
 	.project-desc {
-		color: #666;
-		line-height: 1.8;
-		margin: 0 0 20px 0;
-		font-size: 0.975rem;
+		color: #8b949e;
+		line-height: 1.7;
+		margin: 0 0 16px 0;
+		font-size: 0.9rem;
 		flex-grow: 1;
 	}
 
@@ -273,37 +351,48 @@ import Footer from '../components/Footer.astro';
 		display: flex;
 		gap: 8px;
 		flex-wrap: wrap;
-		margin-bottom: 20px;
+		margin-bottom: 16px;
 	}
 
 	.project-tags span {
-		background: linear-gradient(135deg, #f5f5f7 0%, #efefef 100%);
-		color: #555;
-		padding: 5px 14px;
-		border-radius: 24px;
-		font-size: 0.8rem;
-		font-weight: 600;
-		border: 1px solid #e5e5e7;
+		background: #21262d;
+		color: #79c0ff;
+		padding: 4px 12px;
+		border-radius: 6px;
+		font-size: 0.75rem;
+		font-weight: 500;
+		font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
+		border: 1px solid #30363d;
 		transition: all 0.3s ease;
 	}
 
 	.project-card:hover .project-tags span {
-		background: linear-gradient(135deg, #007aff 0%, #0051d5 100%);
-		color: white;
-		border-color: transparent;
-		transform: translateY(-2px);
+		background: #238636;
+		color: #ffffff;
+		border-color: #2ea043;
 	}
 
 	.project-link {
-		color: #007aff;
+		color: #3fb950;
 		text-decoration: none;
-		font-weight: 700;
+		font-weight: 600;
+		font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
+		font-size: 0.85rem;
 		transition: all 0.3s ease;
-		display: inline-block;
+		display: inline-flex;
+		align-items: center;
+		gap: 4px;
 	}
 
 	.project-link:hover {
-		color: #0051d5;
+		color: #58a6ff;
+	}
+
+	.link-arrow {
+		transition: transform 0.3s ease;
+	}
+
+	.project-link:hover .link-arrow {
 		transform: translateX(4px);
 	}
 
@@ -312,21 +401,43 @@ import Footer from '../components/Footer.astro';
 	}
 
 	.view-all-btn {
-		display: inline-block;
-		background: white;
-		color: #007aff;
-		padding: 14px 40px;
-		border-radius: 12px;
-		border: 2px solid #007aff;
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		background: #21262d;
+		color: #8b949e;
+		padding: 14px 32px;
+		border-radius: 8px;
+		border: 1px solid #30363d;
 		text-decoration: none;
-		font-weight: 700;
-		font-size: 1rem;
+		font-weight: 600;
+		font-size: 0.95rem;
+		font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
 		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	}
 
+	.btn-prefix {
+		color: #3fb950;
+	}
+
 	.view-all-btn:hover {
-		background: #007aff;
-		color: white;
+		background: #30363d;
+		color: #f0f6fc;
+		border-color: #8b949e;
 		transform: translateY(-2px);
+	}
+
+	@media (max-width: 768px) {
+		.hero-title {
+			font-size: 2.5rem;
+		}
+
+		.projects-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.card-line-numbers {
+			display: none;
+		}
 	}
 </style>

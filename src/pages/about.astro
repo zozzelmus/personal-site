@@ -8,36 +8,49 @@ import Footer from "../components/Footer.astro"
     <Nav />
     <main class="about-container">
         <section class="about-header">
+            <div class="header-tag">// whoami</div>
             <h1>About Me</h1>
         </section>
 
         <section class="about-content">
             <div class="about-text">
-                <h2>Hey there</h2>
-                <p>
-                    My name is Brandon Parker. I am a career software engineer and computer enthusiast.
-                    My start was in video game development at a young age from around 12 and I kept writing code ever since.
-                    After winning my first state competition in highschool, I decided software engineering was the career path I wanted to follow.
-                </p>
+                <div class="terminal-block">
+                    <div class="terminal-header">
+                        <div class="terminal-buttons">
+                            <span class="btn-close"></span>
+                            <span class="btn-minimize"></span>
+                            <span class="btn-maximize"></span>
+                        </div>
+                        <span class="terminal-title">My Story</span>
+                    </div>
+                    <div class="terminal-body">
+                        <h2 class="section-title">Hey there</h2>
+                        <p class="section-text">
+                            My name is Brandon Parker. I am a career software engineer and computer enthusiast.
+                            My start was in video game development at a young age from around 12 and I kept writing code ever since.
+                            After winning my first state competition in highschool, I decided software engineering was the career path I wanted to follow.
+                        </p>
 
-                <h3>What I Do</h3>
-                <ul class="about-list">
-                    <li><strong>Web Development:</strong> Build websites using an angular frontend.</li>
-                    <li><strong>Backend Systems:</strong> Create horizontally scalable decoupled projects that allow for pivoting at any point using .NET.</li>
-                    <li><strong>Database Design:</strong> Entry level understanding of relational database architecture.</li>
-                    <li><strong>Telemetry:</strong> Have built dashboards via Splunk for distributed system tracing.</li>
-                </ul>
+                        <h3 class="section-title">What I Do</h3>
+                        <ul class="about-list">
+                            <li><span class="keyword">Web Development:</span> Build websites using an angular frontend.</li>
+                            <li><span class="keyword">Backend Systems:</span> Create horizontally scalable decoupled projects that allow for pivoting at any point using .NET.</li>
+                            <li><span class="keyword">Database Design:</span> Entry level understanding of relational database architecture.</li>
+                            <li><span class="keyword">Telemetry:</span> Have built dashboards via Splunk for distributed system tracing.</li>
+                        </ul>
 
-                <h3>When I'm Not Coding</h3>
-                <p>
-                    I enjoy exploring new technologies, playing video games, taking care of my beautiful cat and playing card games with my friends. 
-                    Recently I have gotten into travel in order to experience different cultures and explore the world!
-                </p>
+                        <h3 class="section-title">When I'm Not Coding</h3>
+                        <p class="section-text">
+                            I enjoy exploring new technologies, playing video games, taking care of my beautiful cat and playing card games with my friends.
+                            Recently I have gotten into travel in order to experience different cultures and explore the world!
+                        </p>
+                    </div>
+                </div>
             </div>
 
             <div class="about-sidebar">
                 <div class="about-card">
-                    <h4>Skills</h4>
+                    <h4 class="card-title">Skills</h4>
                     <div class="tech-list">
                         <span class="tech-item">TypeScript</span>
                         <span class="tech-item">Angular</span>
@@ -50,7 +63,15 @@ import Footer from "../components/Footer.astro"
                         <span class="tech-item">Python</span>
                         <span class="tech-item">Docker</span>
                         <span class="tech-item">Splunk</span>
-                        <span class="tech-item">AWS/ Azure</span>
+                        <span class="tech-item">AWS/Azure</span>
+                    </div>
+                </div>
+
+                <div class="about-card status-card">
+                    <h4 class="card-title">Status</h4>
+                    <div class="status-output">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Available for opportunities</span>
                     </div>
                 </div>
             </div>
@@ -69,48 +90,91 @@ import Footer from "../components/Footer.astro"
 
     .about-header {
         text-align: center;
-        margin-bottom: 100px;
+        margin-bottom: 80px;
+    }
+
+    .header-tag {
+        color: #3fb950;
+        font-size: 0.9rem;
+        margin-bottom: 12px;
     }
 
     .about-header h1 {
-        font-size: 4rem;
+        font-size: 3.5rem;
         font-weight: 800;
         margin: 0;
-        background: linear-gradient(135deg, #1d1d1f 0%, #555 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: #f0f6fc;
+        font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
         letter-spacing: -1px;
     }
 
     .about-content {
         display: grid;
         grid-template-columns: 2fr 1fr;
-        gap: 80px;
+        gap: 40px;
         align-items: start;
     }
 
-    .about-text h2 {
-        font-size: 2.2rem;
-        font-weight: 700;
-        color: #1d1d1f;
-        margin: 0 0 20px 0;
-        letter-spacing: -0.5px;
+    .terminal-block {
+        background: #0d1117;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid #30363d;
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
     }
 
-    .about-text h3 {
-        font-size: 1.35rem;
-        font-weight: 700;
-        color: #1d1d1f;
-        margin: 50px 0 20px 0;
-        letter-spacing: -0.5px;
+    .terminal-header {
+        background: linear-gradient(180deg, #21262d 0%, #161b22 100%);
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        border-bottom: 1px solid #30363d;
     }
 
-    .about-text p {
-        color: #666;
-        line-height: 1.9;
-        font-size: 1rem;
-        margin-bottom: 24px;
+    .terminal-buttons {
+        display: flex;
+        gap: 8px;
+    }
+
+    .terminal-buttons span {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+    }
+
+    .btn-close { background: #f85149; }
+    .btn-minimize { background: #f0c000; }
+    .btn-maximize { background: #3fb950; }
+
+    .terminal-title {
+        color: #8b949e;
+        font-size: 0.8rem;
+        flex: 1;
+        text-align: center;
+        margin-right: 52px;
+    }
+
+    .terminal-body {
+        padding: 28px;
+    }
+
+    .section-title {
+        color: #f0f6fc;
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin: 0 0 16px 0;
+    }
+
+    .section-title:not(:first-child) {
+        margin-top: 32px;
+    }
+
+    .section-text {
+        color: #8b949e;
+        line-height: 1.8;
+        font-size: 0.95rem;
+        margin: 0;
     }
 
     .about-list {
@@ -120,91 +184,111 @@ import Footer from "../components/Footer.astro"
     }
 
     .about-list li {
-        color: #666;
-        line-height: 1.9;
-        margin-bottom: 18px;
-        padding-left: 0;
-        font-size: 0.975rem;
+        color: #8b949e;
+        line-height: 1.8;
+        margin-bottom: 12px;
+        font-size: 0.9rem;
+        position: relative;
+        padding-left: 20px;
+    }
+
+    .about-list li::before {
+        content: '>';
+        position: absolute;
+        left: 0;
+        color: #3fb950;
+    }
+
+    .keyword {
+        color: #79c0ff;
+        font-weight: 600;
+    }
+
+    .about-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
     }
 
     .about-card {
-        background: white;
-        border: 1px solid #e5e5e7;
-        border-radius: 16px;
-        padding: 28px;
-        margin-bottom: 24px;
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 12px;
+        padding: 20px;
         transition: all 0.3s ease;
     }
 
     .about-card:hover {
-        border-color: #007aff;
-        box-shadow: 0 12px 32px rgba(0, 122, 255, 0.12);
+        border-color: #3fb950;
+        box-shadow: 0 0 0 1px rgba(63, 185, 80, 0.2);
     }
 
-    .about-card h4 {
-        font-size: 1.15rem;
-        font-weight: 700;
-        color: #1d1d1f;
+    .card-title {
+        color: #f0f6fc;
+        font-size: 1rem;
+        font-weight: 600;
         margin: 0 0 16px 0;
-        letter-spacing: -0.3px;
     }
 
     .tech-list {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px;
+        gap: 8px;
     }
 
     .tech-item {
-        background: linear-gradient(135deg, #f5f5f7 0%, #efefef 100%);
-        color: #666;
-        padding: 7px 15px;
-        border-radius: 24px;
-        font-size: 0.85rem;
-        font-weight: 600;
-        border: 1px solid #e5e5e7;
+        background: #21262d;
+        color: #79c0ff;
+        padding: 5px 12px;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        border: 1px solid #30363d;
         transition: all 0.3s ease;
     }
 
     .about-card:hover .tech-item {
-        border-color: #007aff;
-        color: #007aff;
+        border-color: #3fb950;
+        color: #3fb950;
     }
 
-    .available-status {
+    .status-output {
         display: flex;
         align-items: center;
         gap: 10px;
-        color: #666;
-        margin: 0;
-        font-weight: 500;
+        padding: 8px 0;
     }
 
     .status-dot {
         width: 8px;
         height: 8px;
-        background-color: #10b981;
+        background: #3fb950;
         border-radius: 50%;
-        box-shadow: 0 0 8px #10b981;
-        flex-shrink: 0;
+        animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { opacity: 1; box-shadow: 0 0 8px #3fb950; }
+        50% { opacity: 0.6; box-shadow: 0 0 4px #3fb950; }
+    }
+
+    .status-text {
+        color: #8b949e;
+        font-size: 0.85rem;
     }
 
     @media (max-width: 768px) {
         .about-header h1 {
-            font-size: 2.8rem;
-        }
-
-        .about-container {
-            padding: 80px 16px;
+            font-size: 2.5rem;
         }
 
         .about-content {
             grid-template-columns: 1fr;
-            gap: 60px;
+            gap: 32px;
         }
 
-        .about-text h2 {
-            font-size: 1.8rem;
+        .terminal-body {
+            padding: 20px;
         }
     }
 </style>

@@ -1,0 +1,170 @@
+---
+import { getSkillsWithCount } from '../data/projects';
+
+const skillsWithCount = getSkillsWithCount();
+---
+
+<section class="skills-showcase">
+    <div class="section-header">
+        <h2>Skills & Technologies</h2>
+        <p>Technologies I use across my projects</p>
+    </div>
+    <div class="terminal-window">
+        <div class="terminal-header">
+            <div class="terminal-buttons">
+                <span class="btn-close"></span>
+                <span class="btn-minimize"></span>
+                <span class="btn-maximize"></span>
+            </div>
+            <span class="terminal-title">My Toolkit</span>
+        </div>
+        <div class="terminal-body">
+            <div class="skills-output">
+                {skillsWithCount.map(({ skill, count }) => (
+                    <div class="skill-item">
+                        <span class="skill-name">{skill}</span>
+                        <span class="skill-bar">
+                            <span class="skill-fill" style={`width: ${Math.min(count * 25, 100)}%`}></span>
+                        </span>
+                        <span class="skill-count">{count} {count === 1 ? 'project' : 'projects'}</span>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .skills-showcase {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 60px 20px;
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 32px;
+    }
+
+    .section-header h2 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #f0f6fc;
+        margin: 0 0 8px 0;
+        font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
+    }
+
+    .section-header p {
+        color: #8b949e;
+        font-size: 0.95rem;
+        margin: 0;
+    }
+
+    .terminal-window {
+        background: #0d1117;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow:
+            0 0 0 1px rgba(48, 54, 61, 0.8),
+            0 16px 48px rgba(0, 0, 0, 0.4),
+            0 0 80px rgba(0, 255, 136, 0.05);
+        font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
+    }
+
+    .terminal-header {
+        background: linear-gradient(180deg, #21262d 0%, #161b22 100%);
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        border-bottom: 1px solid #30363d;
+    }
+
+    .terminal-buttons {
+        display: flex;
+        gap: 8px;
+    }
+
+    .terminal-buttons span {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+    }
+
+    .btn-close {
+        background: #f85149;
+    }
+
+    .btn-minimize {
+        background: #f0c000;
+    }
+
+    .btn-maximize {
+        background: #3fb950;
+    }
+
+    .terminal-title {
+        color: #8b949e;
+        font-size: 0.8rem;
+        flex: 1;
+        text-align: center;
+        margin-right: 52px;
+    }
+
+    .terminal-body {
+        padding: 20px;
+    }
+
+    .skills-output {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .skill-item {
+        display: grid;
+        grid-template-columns: 180px 1fr 80px;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .skill-name {
+        color: #79c0ff;
+        font-size: 0.9rem;
+    }
+
+    .skill-bar {
+        height: 8px;
+        background: #21262d;
+        border-radius: 4px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .skill-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #238636 0%, #3fb950 100%);
+        border-radius: 4px;
+        transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .skill-count {
+        color: #8b949e;
+        font-size: 0.75rem;
+        text-align: right;
+    }
+
+    @media (max-width: 600px) {
+        .skill-item {
+            grid-template-columns: 120px 1fr 70px;
+        }
+
+        .skill-name {
+            font-size: 0.8rem;
+        }
+
+        .skill-count {
+            font-size: 0.7rem;
+        }
+    }
+</style>

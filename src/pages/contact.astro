@@ -8,41 +8,73 @@ import Footer from "../components/Footer.astro"
     <Nav />
     <main class="contact-container">
         <section class="contact-header">
-            <h1>Contact Me</h1>
+            <h1>Get In Touch</h1>
             <p>Currently accepting open source project requests, learning opportunities, and research opportunities.</p>
         </section>
 
         <section class="contact-content">
             <div class="contact-form-wrapper">
-                <form class="contact-form">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required>
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <div class="terminal-buttons">
+                            <span class="btn-close"></span>
+                            <span class="btn-minimize"></span>
+                            <span class="btn-maximize"></span>
+                        </div>
+                        <span class="terminal-title">Send a Message</span>
                     </div>
+                    <div class="terminal-body">
+                        <form class="contact-form">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" name="name" placeholder="Your name" required>
+                            </div>
 
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" name="subject" placeholder="What's this about?" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" rows="6" placeholder="Your message here..." required></textarea>
+                            </div>
+
+                            <button disabled type="submit" class="submit-btn">
+                                Send Message
+                            </button>
+                            <p class="form-note">Form submission coming soon</p>
+                        </form>
                     </div>
-
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="6" required></textarea>
-                    </div>
-
-                    <button disabled="true" type="submit" class="submit-btn">Send Message</button>
-                </form>
+                </div>
             </div>
 
             <div class="contact-info">
                 <div class="contact-card">
-                    <h3>Email</h3>
-                    <p>brandonparker.tech@gmail.com</p>
+                    <h4 class="card-title">Email</h4>
+                    <div class="card-content">
+                        <a href="mailto:brandonparker.tech@gmail.com" class="email-link">brandonparker.tech@gmail.com</a>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <h4 class="card-title">Availability</h4>
+                    <div class="card-content">
+                        <div class="status-line">
+                            <span class="status-dot"></span>
+                            <span class="status-text">Open to opportunities</span>
+                        </div>
+                        <ul class="availability-list">
+                            <li><span class="check">+</span> Open source projects</li>
+                            <li><span class="check">+</span> Learning opportunities</li>
+                            <li><span class="check">+</span> Research collaborations</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
@@ -54,221 +86,263 @@ import Footer from "../components/Footer.astro"
     .contact-container {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 100px 20px;
+        padding: 50px 20px;
         flex: 1;
     }
 
     .contact-header {
         text-align: center;
-        margin-bottom: 100px;
+        margin-bottom: 80px;
     }
 
     .contact-header h1 {
-        font-size: 4rem;
+        font-size: 3.5rem;
         font-weight: 800;
         margin: 0 0 20px 0;
-        background: linear-gradient(135deg, #1d1d1f 0%, #555 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: #f0f6fc;
+        font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
         letter-spacing: -1px;
     }
 
     .contact-header p {
-        font-size: 1.15rem;
-        color: #666;
+        font-size: 1.1rem;
+        color: #8b949e;
         margin: 0;
-        font-weight: 400;
     }
 
     .contact-content {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 80px;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 40px;
         align-items: start;
+    }
+
+    .terminal-window {
+        background: #0d1117;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid #30363d;
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+    }
+
+    .terminal-header {
+        background: linear-gradient(180deg, #21262d 0%, #161b22 100%);
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        border-bottom: 1px solid #30363d;
+    }
+
+    .terminal-buttons {
+        display: flex;
+        gap: 8px;
+    }
+
+    .terminal-buttons span {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+    }
+
+    .btn-close { background: #f85149; }
+    .btn-minimize { background: #f0c000; }
+    .btn-maximize { background: #3fb950; }
+
+    .terminal-title {
+        color: #8b949e;
+        font-size: 0.8rem;
+        flex: 1;
+        text-align: center;
+        margin-right: 52px;
+    }
+
+    .terminal-body {
+        padding: 24px;
     }
 
     .contact-form {
         display: flex;
         flex-direction: column;
-        gap: 24px;
+        gap: 20px;
     }
 
     .form-group {
         display: flex;
         flex-direction: column;
+        gap: 8px;
     }
 
     .form-group label {
-        font-weight: 700;
-        color: #1d1d1f;
-        margin-bottom: 10px;
-        font-size: 0.95rem;
-        letter-spacing: -0.3px;
+        color: #f0f6fc;
+        font-size: 0.9rem;
+        font-weight: 500;
     }
 
     .form-group input,
     .form-group textarea {
-        padding: 14px 18px;
-        border: 1.5px solid #e5e5e7;
-        border-radius: 12px;
-        font-family: inherit;
-        font-size: 1rem;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        color: #1d1d1f;
-        background: white;
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 6px;
+        padding: 12px 16px;
+        font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
+        font-size: 0.9rem;
+        color: #f0f6fc;
+        transition: all 0.3s ease;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+        color: #484f58;
     }
 
     .form-group input:hover,
     .form-group textarea:hover {
-        border-color: #d5d5d7;
+        border-color: #484f58;
     }
 
     .form-group input:focus,
     .form-group textarea:focus {
         outline: none;
-        border-color: #007aff;
-        box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.12);
-        background: white;
+        border-color: #3fb950;
+        box-shadow: 0 0 0 3px rgba(63, 185, 80, 0.15);
     }
 
     .form-group textarea {
         resize: vertical;
-        font-size: 0.95rem;
-        line-height: 1.6;
+        min-height: 120px;
     }
 
     .submit-btn {
-        background: linear-gradient(135deg, #007aff 0%, #0051d5 100%);
+        background: linear-gradient(135deg, #238636 0%, #2ea043 100%);
         color: white;
-        padding: 14px 32px;
-        border: none;
-        border-radius: 12px;
-        font-weight: 700;
+        padding: 14px 24px;
+        border: 1px solid #238636;
+        border-radius: 8px;
+        font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
+        font-size: 0.9rem;
+        font-weight: 600;
         cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        font-size: 1rem;
-        letter-spacing: -0.3px;
+        transition: all 0.3s ease;
     }
 
-    .submit-btn:hover {
+    .submit-btn:hover:not(:disabled) {
         transform: translateY(-2px);
-        box-shadow: 0 12px 32px rgba(0, 122, 255, 0.25);
-    }
-
-    .submit-btn:active {
-        transform: translateY(0);
+        box-shadow: 0 8px 24px rgba(35, 134, 54, 0.4);
     }
 
     .submit-btn:disabled {
         opacity: 0.5;
         cursor: not-allowed;
-        background: linear-gradient(135deg, #999 0%, #666 100%);
+        background: #21262d;
+        border-color: #30363d;
     }
 
-    .submit-btn:disabled:hover {
-        transform: none;
-        box-shadow: none;
+    .form-note {
+        color: #484f58;
+        font-size: 0.8rem;
+        margin: 0;
+        text-align: center;
     }
 
     .contact-info {
         display: flex;
         flex-direction: column;
-        gap: 24px;
+        gap: 20px;
     }
 
     .contact-card {
-        background: white;
-        border: 1px solid #e5e5e7;
-        border-radius: 16px;
-        padding: 28px;
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 12px;
+        padding: 20px;
         transition: all 0.3s ease;
     }
 
     .contact-card:hover {
-        border-color: #007aff;
-        box-shadow: 0 12px 32px rgba(0, 122, 255, 0.12);
+        border-color: #3fb950;
+        box-shadow: 0 0 0 1px rgba(63, 185, 80, 0.2);
     }
 
-    .contact-card h3 {
-        font-size: 1.15rem;
-        font-weight: 700;
-        color: #1d1d1f;
-        margin: 0 0 12px 0;
-        letter-spacing: -0.3px;
-    }
-
-    .contact-card p {
-        color: #666;
-        margin-bottom: 12px;
-        font-size: 0.95rem;
-    }
-
-    .contact-link {
-        color: #007aff;
-        text-decoration: none;
-        font-weight: 700;
-        transition: all 0.3s ease;
-        display: inline-flex;
-        align-items: center;
-    }
-
-    .contact-link:hover {
-        color: #0051d5;
-    }
-
-    .social-links {
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-    }
-
-    .social-link {
-        color: #007aff;
-        text-decoration: none;
-        padding: 9px 16px;
-        border: 1.5px solid #e5e5e7;
-        border-radius: 8px;
-        font-size: 0.9rem;
+    .card-title {
+        color: #f0f6fc;
+        font-size: 1rem;
         font-weight: 600;
-        transition: all 0.3s ease;
+        margin: 0 0 12px 0;
     }
 
-    .social-link:hover {
-        background: #007aff;
-        color: white;
-        border-color: #007aff;
+    .card-content {
+        padding-left: 0;
+    }
+
+    .email-link {
+        color: #79c0ff;
+        font-size: 0.9rem;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    .email-link:hover {
+        color: #3fb950;
+    }
+
+    .status-line {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 16px;
     }
 
     .status-dot {
         width: 8px;
         height: 8px;
-        background-color: #10b981;
+        background: #3fb950;
         border-radius: 50%;
-        box-shadow: 0 0 8px #10b981;
-        display: inline-block;
-        margin-right: 8px;
-        flex-shrink: 0;
+        animation: pulse 2s ease-in-out infinite;
     }
 
-    .availability-text {
+    @keyframes pulse {
+        0%, 100% { opacity: 1; box-shadow: 0 0 8px #3fb950; }
+        50% { opacity: 0.6; box-shadow: 0 0 4px #3fb950; }
+    }
+
+    .status-text {
+        color: #8b949e;
+        font-size: 0.9rem;
+    }
+
+    .availability-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .availability-list li {
+        color: #8b949e;
         font-size: 0.85rem;
-        color: #999;
-        margin: 8px 0 0 0;
+        padding: 6px 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .check {
+        color: #3fb950;
+        font-weight: bold;
     }
 
     @media (max-width: 768px) {
         .contact-header h1 {
-            font-size: 2.8rem;
-        }
-
-        .contact-container {
-            padding: 80px 16px;
+            font-size: 2.5rem;
         }
 
         .contact-content {
             grid-template-columns: 1fr;
-            gap: 60px;
+            gap: 32px;
+        }
+
+        .terminal-body {
+            padding: 16px;
         }
     }
 </style>

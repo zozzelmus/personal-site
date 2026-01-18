@@ -2,74 +2,46 @@
 import Layout from "../layouts/Layout.astro"
 import Nav from "../components/Nav.astro"
 import Footer from "../components/Footer.astro"
+import { projects } from "../data/projects"
 ---
 
 <Layout>
     <Nav />
     <main class="work-container">
         <section class="work-header">
-            <h1>Work</h1>
+            <h1>My Work</h1>
             <p>A selection of projects and experiences that showcase my expertise in building scalable web applications and distributed systems.</p>
         </section>
 
         <section class="work-grid">
-            <article class="work-card">
-                <div class="work-card-header">
-                    <h3>Calculator compiler</h3>
-                    <span class="work-date">2025</span>
-                </div>
-                <p class="work-description">A basic compiler written in C#. Functions as a calculator but shares concepts with tokenizing string to actions.</p>
-                <div class="work-tags">
-                    <span class="tag">C#</span>
-                    <span class="tag">Lexers</span>
-                    <span class="tag">Compilers</span>
-                </div>
-                <a href="https://github.com/zozzelmus/LiteralCompiler" target="_blank" class="project-link">View Details →</a>
-            </article>
-
-            <article class="work-card">
-                <div class="work-card-header">
-                    <h3>Web Link Shortener</h3>
-                    <span class="work-date">2025</span>
-                </div>
-                <p class="work-description">Basic Web APIs using REST APIs to shorten links for the requester.</p>
-                <div class="work-tags">
-                    <span class="tag">Entity Framework Core</span>
-                    <span class="tag">C#</span>
-                    <span class="tag">ASP.NET</span>
-                    <span class="tag">postgresql</span>
-                </div>
-                <a href="https://github.com/zozzelmus/WebLinkShortener" target="_blank" class="project-link">View Details →</a>
-            </article>
-
-            <article class="work-card">
-                <div class="work-card-header">
-                    <h3>Longnight</h3>
-                    <span class="work-date">2024</span>
-                </div>
-                <p class="work-description">Half finished project using Unity. Longnight was my biggest video game project which was a Silent Hill style game.</p>
-                <div class="work-tags">
-                    <span class="tag">C#</span>
-                    <span class="tag">Unity</span>
-                    <span class="tag">Data Structures</span>
-                </div>
-                <a href="https://github.com/zozzelmus/longnight" target="_blank" class="project-link">View Details →</a>
-            </article>
-
-            <article class="work-card">
-                <div class="work-card-header">
-                    <h3>Portfolio</h3>
-                    <span class="work-date">2025</span>
-                </div>
-                <p class="work-description">Contains several smaller template and POC style code things I work on for demo purposes for work.</p>
-                <div class="work-tags">
-                    <span class="tag">C#</span>
-                    <span class="tag">WebApis</span>
-                    <span class="tag">Clean Architecture</span>
-                    <span class="tag">Mass Transit</span>
-                </div>
-                <a href="https://github.com/zozzelmus/Portfolio" target="_blank" class="project-link">View Details →</a>
-            </article>
+            {projects.map((project, index) => (
+                <article class="work-card" data-featured={project.featured ? "true" : "false"}>
+                    <div class="card-line-numbers">
+                        <span>{String(index * 4 + 1).padStart(2, '0')}</span>
+                        <span>{String(index * 4 + 2).padStart(2, '0')}</span>
+                        <span>{String(index * 4 + 3).padStart(2, '0')}</span>
+                        <span>{String(index * 4 + 4).padStart(2, '0')}</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="work-card-header">
+                            <div class="title-row">
+                                <h3>{project.title}</h3>
+                                {project.featured && <span class="featured-badge">featured</span>}
+                            </div>
+                            <span class="work-date">{project.year}</span>
+                        </div>
+                        <p class="work-description">{project.description}</p>
+                        <div class="work-tags">
+                            {project.skills.map((skill) => (
+                                <span class="tag">{skill}</span>
+                            ))}
+                        </div>
+                        <a href={project.githubUrl} target="_blank" class="project-link">
+                            View on GitHub <span class="link-arrow">&rarr;</span>
+                        </a>
+                    </div>
+                </article>
+            ))}
         </section>
     </main>
     <Footer />
@@ -84,24 +56,29 @@ import Footer from "../components/Footer.astro"
     }
 
     .work-header {
-        margin-bottom: 100px;
+        margin-bottom: 80px;
         text-align: center;
     }
 
+    .header-tag {
+        color: #3fb950;
+        font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
+        font-size: 0.9rem;
+        margin-bottom: 12px;
+    }
+
     .work-header h1 {
-        font-size: 4rem;
+        font-size: 3.5rem;
         font-weight: 800;
         margin: 0 0 20px 0;
-        background: linear-gradient(135deg, #1d1d1f 0%, #555 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: #f0f6fc;
+        font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
         letter-spacing: -1px;
     }
 
     .work-header p {
         font-size: 1.15rem;
-        color: #666;
+        color: #8b949e;
         max-width: 650px;
         margin: 0 auto;
         line-height: 1.8;
@@ -110,19 +87,18 @@ import Footer from "../components/Footer.astro"
 
     .work-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 32px;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 24px;
     }
 
     .work-card {
-        background: white;
-        border: 1px solid #e5e5e7;
-        border-radius: 16px;
-        padding: 32px;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        cursor: pointer;
-        position: relative;
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 12px;
+        display: flex;
         overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
     }
 
     .work-card::before {
@@ -131,93 +107,166 @@ import Footer from "../components/Footer.astro"
         top: 0;
         left: 0;
         right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, #007aff, #bc52ee);
+        height: 2px;
+        background: linear-gradient(90deg, #3fb950, #58a6ff);
         transform: scaleX(0);
         transform-origin: left;
         transition: transform 0.4s ease;
     }
 
+    .work-card[data-featured="true"] {
+        border-color: #238636;
+    }
+
+    .work-card[data-featured="true"]::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(35, 134, 54, 0.05) 0%, transparent 50%);
+        pointer-events: none;
+    }
+
     .work-card:hover {
-        border-color: #e5e5e7;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-        transform: translateY(-8px);
+        border-color: #3fb950;
+        box-shadow:
+            0 0 0 1px rgba(63, 185, 80, 0.3),
+            0 16px 32px rgba(0, 0, 0, 0.3);
+        transform: translateY(-4px);
     }
 
     .work-card:hover::before {
         transform: scaleX(1);
     }
 
+    .card-line-numbers {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        padding: 24px 12px;
+        background: #0d1117;
+        border-right: 1px solid #21262d;
+        font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
+        font-size: 0.75rem;
+        color: #484f58;
+        text-align: right;
+    }
+
+    .card-content {
+        padding: 24px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
     .work-card-header {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        margin-bottom: 16px;
+        margin-bottom: 12px;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .title-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
 
     .work-card h3 {
-        font-size: 1.4rem;
-        font-weight: 700;
-        color: #1d1d1f;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #f0f6fc;
         margin: 0;
-        letter-spacing: -0.5px;
+        font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
     }
 
-    .work-date {
-        color: #999;
-        font-size: 0.85rem;
-        font-weight: 500;
+    .featured-badge {
+        background: linear-gradient(135deg, #238636 0%, #2ea043 100%);
+        color: white;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.65rem;
+        font-weight: 600;
+        font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
 
+    .work-date {
+        color: #484f58;
+        font-size: 0.8rem;
+        font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
+    }
+
     .work-description {
-        color: #666;
-        line-height: 1.8;
-        margin-bottom: 24px;
-        font-size: 0.975rem;
+        color: #8b949e;
+        line-height: 1.7;
+        margin-bottom: 16px;
+        font-size: 0.9rem;
+        flex-grow: 1;
     }
 
     .work-tags {
         display: flex;
         gap: 8px;
         flex-wrap: wrap;
+        margin-bottom: 16px;
     }
 
-    .project-link {
-		color: #007aff;
-		text-decoration: none;
-		font-weight: 700;
-		padding-top: 20px;
-		transition: all 0.3s ease;
-		display: inline-block;
-	}
-
     .tag {
-        background: linear-gradient(135deg, #f5f5f7 0%, #efefef 100%);
-        color: #555;
-        padding: 5px 14px;
-        border-radius: 24px;
-        font-size: 0.8rem;
-        font-weight: 600;
+        background: #21262d;
+        color: #79c0ff;
+        padding: 4px 12px;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
+        border: 1px solid #30363d;
         transition: all 0.3s ease;
-        border: 1px solid #e5e5e7;
     }
 
     .work-card:hover .tag {
-        background: linear-gradient(135deg, #007aff 0%, #0051d5 100%);
-        color: white;
-        border-color: transparent;
-        transform: translateY(-2px);
+        background: #238636;
+        color: #ffffff;
+        border-color: #2ea043;
+    }
+
+    .project-link {
+        color: #3fb950;
+        text-decoration: none;
+        font-weight: 600;
+        font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
+        font-size: 0.85rem;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .project-link:hover {
+        color: #58a6ff;
+    }
+
+    .link-arrow {
+        transition: transform 0.3s ease;
+    }
+
+    .project-link:hover .link-arrow {
+        transform: translateX(4px);
     }
 
     @media (max-width: 768px) {
         .work-header h1 {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
         }
 
         .work-grid {
             grid-template-columns: 1fr;
+        }
+
+        .card-line-numbers {
+            display: none;
         }
     }
 </style>
