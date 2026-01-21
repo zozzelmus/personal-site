@@ -16,12 +16,7 @@ import { projects } from "../data/projects"
         <section class="work-grid">
             {projects.map((project, index) => (
                 <article class="work-card" data-featured={project.featured ? "true" : "false"}>
-                    <div class="card-line-numbers">
-                        <span>{String(index * 4 + 1).padStart(2, '0')}</span>
-                        <span>{String(index * 4 + 2).padStart(2, '0')}</span>
-                        <span>{String(index * 4 + 3).padStart(2, '0')}</span>
-                        <span>{String(index * 4 + 4).padStart(2, '0')}</span>
-                    </div>
+                    <div class="card-accent"></div>
                     <div class="card-content">
                         <div class="work-card-header">
                             <div class="title-row">
@@ -138,17 +133,10 @@ import { projects } from "../data/projects"
         transform: scaleX(1);
     }
 
-    .card-line-numbers {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-        padding: 24px 12px;
+    .card-accent {
+        width: 36px;
         background: #0d1117;
         border-right: 1px solid #21262d;
-        font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
-        font-size: 0.75rem;
-        color: #484f58;
-        text-align: right;
     }
 
     .card-content {
@@ -265,7 +253,7 @@ import { projects } from "../data/projects"
             grid-template-columns: 1fr;
         }
 
-        .card-line-numbers {
+        .card-accent {
             display: none;
         }
     }
