@@ -1,13 +1,11 @@
 ---
-import { getSkillsWithCount } from '../data/projects';
-
-const skillsWithCount = getSkillsWithCount();
+import { professionalSkills } from '../data/projects';
 ---
 
 <section class="skills-showcase">
     <div class="section-header">
         <h2>Skills & Technologies</h2>
-        <p>Technologies I use across my projects</p>
+        <p>Technologies I work with professionally</p>
     </div>
     <div class="terminal-window">
         <div class="terminal-header">
@@ -20,14 +18,8 @@ const skillsWithCount = getSkillsWithCount();
         </div>
         <div class="terminal-body">
             <div class="skills-output">
-                {skillsWithCount.map(({ skill, count }) => (
-                    <div class="skill-item">
-                        <span class="skill-name">{skill}</span>
-                        <span class="skill-bar">
-                            <span class="skill-fill" style={`width: ${Math.min(count * 25, 100)}%`}></span>
-                        </span>
-                        <span class="skill-count">{count} {count === 1 ? 'project' : 'projects'}</span>
-                    </div>
+                {professionalSkills.map((skill) => (
+                    <span class="skill-tag">{skill}</span>
                 ))}
             </div>
         </div>
@@ -91,17 +83,9 @@ const skillsWithCount = getSkillsWithCount();
         border-radius: 50%;
     }
 
-    .btn-close {
-        background: #f85149;
-    }
-
-    .btn-minimize {
-        background: #f0c000;
-    }
-
-    .btn-maximize {
-        background: #3fb950;
-    }
+    .btn-close { background: #f85149; }
+    .btn-minimize { background: #f0c000; }
+    .btn-maximize { background: #3fb950; }
 
     .terminal-title {
         color: #8b949e;
@@ -112,59 +96,29 @@ const skillsWithCount = getSkillsWithCount();
     }
 
     .terminal-body {
-        padding: 20px;
+        padding: 24px;
     }
 
     .skills-output {
         display: flex;
-        flex-direction: column;
-        gap: 12px;
+        flex-wrap: wrap;
+        gap: 10px;
     }
 
-    .skill-item {
-        display: grid;
-        grid-template-columns: 180px 1fr 80px;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .skill-name {
-        color: #79c0ff;
-        font-size: 0.9rem;
-    }
-
-    .skill-bar {
-        height: 8px;
+    .skill-tag {
         background: #21262d;
-        border-radius: 4px;
-        overflow: hidden;
-        position: relative;
+        color: #79c0ff;
+        padding: 6px 14px;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        border: 1px solid #30363d;
+        transition: all 0.2s ease;
     }
 
-    .skill-fill {
-        height: 100%;
-        background: linear-gradient(90deg, #238636 0%, #3fb950 100%);
-        border-radius: 4px;
-        transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .skill-count {
-        color: #8b949e;
-        font-size: 0.75rem;
-        text-align: right;
-    }
-
-    @media (max-width: 600px) {
-        .skill-item {
-            grid-template-columns: 120px 1fr 70px;
-        }
-
-        .skill-name {
-            font-size: 0.8rem;
-        }
-
-        .skill-count {
-            font-size: 0.7rem;
-        }
+    .skill-tag:hover {
+        border-color: #3fb950;
+        color: #3fb950;
+        background: rgba(63, 185, 80, 0.1);
     }
 </style>

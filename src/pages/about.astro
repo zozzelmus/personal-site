@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro"
 import Nav from "../components/Nav.astro"
 import Footer from "../components/Footer.astro"
+import { professionalSkills } from "../data/projects"
 ---
 
 <Layout>
@@ -52,18 +53,9 @@ import Footer from "../components/Footer.astro"
                 <div class="about-card">
                     <h4 class="card-title">Skills</h4>
                     <div class="tech-list">
-                        <span class="tech-item">TypeScript</span>
-                        <span class="tech-item">Angular</span>
-                        <span class="tech-item">C#</span>
-                        <span class="tech-item">Rust</span>
-                        <span class="tech-item">MSSQL</span>
-                        <span class="tech-item">Redis</span>
-                        <span class="tech-item">Kafka</span>
-                        <span class="tech-item">ASP.NET</span>
-                        <span class="tech-item">Python</span>
-                        <span class="tech-item">Docker</span>
-                        <span class="tech-item">Splunk</span>
-                        <span class="tech-item">AWS/Azure</span>
+                        {professionalSkills.map((skill) => (
+                            <span class="tech-item">{skill}</span>
+                        ))}
                     </div>
                 </div>
 

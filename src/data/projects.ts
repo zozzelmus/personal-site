@@ -28,6 +28,24 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    id: "dotflow",
+    title: "dotflow",
+    year: 2026,
+    description: "A .NET 10 workflow engine for building event-driven pipelines. Workflows are composed of phases wired together by published events, with a built-in real-time dashboard for monitoring state.",
+    skills: ["C#", "ASP.NET", ".NET", "PostgreSQL", "HTMX"],
+    githubUrl: "https://github.com/zozzelmus/dotflow",
+    featured: true,
+  },
+  {
+    id: "agentic-developer-cli",
+    title: "Agentic Developer CLI",
+    year: 2026,
+    description: "A CLI built to understand how agentic developer tools like Claude Code work under the hood, implementing tool calling, function invocation, and prompt management patterns.",
+    skills: ["Python", "LLMs", "Agentic AI"],
+    githubUrl: "https://github.com/zozzelmus/Agentic-Developer-CLI",
+    featured: true,
+  },
+  {
     id: "longnight",
     title: "Longnight",
     year: 2024,
@@ -45,6 +63,11 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/zozzelmus/Portfolio",
     featured: false,
   },
+];
+
+export const professionalSkills: string[] = [
+  "TypeScript", "Angular", "C#", "Rust", "MSSQL", "Redis",
+  "Kafka", "ASP.NET", "Python", "Docker", "Splunk", "AWS/Azure",
 ];
 
 export function getFeaturedProjects(): Project[] {

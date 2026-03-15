@@ -2,7 +2,10 @@
 import Layout from "../layouts/Layout.astro"
 import Nav from "../components/Nav.astro"
 import Footer from "../components/Footer.astro"
-import { projects } from "../data/projects"
+import { projects, getSkillsWithCount } from "../data/projects"
+
+const skillsWithCount = getSkillsWithCount();
+const filterSkills = skillsWithCount.filter(({ count }) => count >= 2).map(({ skill }) => skill);
 ---
 
 <Layout>
@@ -12,6 +15,14 @@ import { projects } from "../data/projects"
             <h1>My Work</h1>
             <p>A selection of projects and experiences that showcase my expertise in building scalable web applications and distributed systems.</p>
         </section>
+
+        <div class="filter-bar">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="featured">Featured</button>
+            {filterSkills.map((skill) => (
+                <button class="filter-btn" data-filter={skill}>{skill}</button>
+            ))}
+        </div>
 
         <section class="work-grid">
             {projects.map((project, index) => (
@@ -244,6 +255,41 @@ import { projects } from "../data/projects"
         transform: translateX(4px);
     }
 
+    .filter-bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 32px;
+    }
+
+    .filter-btn {
+        background: #161b22;
+        color: #8b949e;
+        border: 1px solid #30363d;
+        border-radius: 6px;
+        padding: 6px 16px;
+        font-size: 0.8rem;
+        font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .filter-btn:hover {
+        border-color: #3fb950;
+        color: #f0f6fc;
+    }
+
+    .filter-btn.active {
+        background: #238636;
+        border-color: #2ea043;
+        color: #ffffff;
+    }
+
+    .work-card.hidden {
+        display: none;
+    }
+
     @media (max-width: 768px) {
         .work-header h1 {
             font-size: 2.5rem;
@@ -258,3 +304,28 @@ import { projects } from "../data/projects"
         }
     }
 </style>
+
+<script>
+    const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+    const cards = document.querySelectorAll<HTMLElement>('.work-card');
+
+    buttons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            buttons.forEach((b) => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const filter = btn.dataset.filter;
+
+            cards.forEach((card) => {
+                if (filter === 'all') {
+                    card.classList.remove('hidden');
+                } else if (filter === 'featured') {
+                    card.classList.toggle('hidden', card.dataset.featured !== 'true');
+                } else {
+                    const tags = Array.from(card.querySelectorAll('.tag')).map((t) => t.textContent);
+                    card.classList.toggle('hidden', !tags.includes(filter));
+                }
+            });
+        });
+    });
+</script>
