@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Mother's Day</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+  /*
+    ============================================================
+    IMAGE PLACEMENT CONFIG
+    ============================================================
+    Put your images in: /images/   (relative to this HTML file)
+       images/haunter.png
+       images/lucky.png
+       images/wisp.png
+
+    To tweak how each image sits in its frame, edit the values
+    in the .config block below. Each image has:
+       --scale   : 1.0 = fits frame, 1.5 = 50% bigger, etc
+       --x       : horizontal nudge in % (-50 to 50)
+       --y       : vertical nudge in % (-50 to 50)
+       --rot     : rotation in degrees
+       --flip-h  : 1 = normal, -1 = flipped horizontally
+       --flip-v  : 1 = normal, -1 = flipped vertically
+
+    If an image is missing, the spot stays invisible.
+    ============================================================
+  */
+  .zone-haunter img {
+    --scale: 1.45;
+    --x: 0%;
+    --y: 0%;
+    --rot: 0deg;
+    --flip-h: 1;
+    --flip-v: 1;
+  }
+  .zone-lucky img {
+    --scale: 1.0;
+    --x: 0%;
+    --y: 0%;
+    --rot: 0deg;
+    --flip-h: 1;
+    --flip-v: 1;
+    opacity: 0.55;
+    filter: sepia(1) hue-rotate(225deg) saturate(2.2) brightness(0.75);
+  }
+  .zone-wisp img {
+    --scale: 1.0;
+    --x: 0%;
+    --y: 0%;
+    --rot: 0deg;
+    --flip-h: 1;
+    --flip-v: 1;
+    opacity: 0.55;
+    filter: sepia(1) hue-rotate(225deg) saturate(2.2) brightness(0.85);
+  }
+
+  /* ============================================================ */
+  /* Card styling below — no need to edit unless you want to     */
+  /* ============================================================ */
+  body {
+    margin: 0;
+    padding: 24px 12px;
+    background: #2D1B4E;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: 'VT323', 'Courier New', monospace;
+  }
+
+  .card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    image-rendering: pixelated;
+  }
+  .card {
+    width: 680px;
+    max-width: 100%;
+    background: #FFFBF3;
+    position: relative;
+    padding: 24px;
+    box-sizing: border-box;
+    box-shadow:
+      0 0 0 6px #5B3A8A,
+      0 0 0 9px #B49AD9,
+      0 0 0 12px #5B3A8A;
+    image-rendering: pixelated;
+  }
+  .card::before, .card::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: #FFD56B;
+    box-shadow:
+      6px 6px 0 #FFD56B,
+      -6px -6px 0 #FFD56B,
+      6px -6px 0 #FFD56B,
+      -6px 6px 0 #FFD56B;
+  }
+  .card::before { top: 8px; left: 8px; }
+  .card::after  { top: 8px; right: 8px; }
+  .corner-bl, .corner-br {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: #FFD56B;
+    box-shadow:
+      6px 6px 0 #FFD56B,
+      -6px -6px 0 #FFD56B,
+      6px -6px 0 #FFD56B,
+      -6px 6px 0 #FFD56B;
+  }
+  .corner-bl { bottom: 8px; left: 8px; }
+  .corner-br { bottom: 8px; right: 8px; }
+
+  .washi {
+    position: absolute;
+    height: 24px;
+    width: 130px;
+    top: 30px;
+    background:
+      repeating-linear-gradient(90deg, transparent 0 12px, rgba(0,0,0,0.15) 12px 14px),
+      repeating-linear-gradient(0deg, transparent 0 4px, rgba(255,255,255,0.2) 4px 5px);
+  }
+  .washi::before, .washi::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: inherit;
+    background-image: repeating-linear-gradient(90deg, currentColor 0 6px, transparent 6px 12px);
+  }
+  .washi::before { top: -4px; }
+  .washi::after  { bottom: -4px; }
+  .washi-left  { left: 60px;  background-color: #B49AD9; color: #B49AD9; transform: rotate(-3deg); }
+  .washi-right { right: 60px; background-color: #F4A6B8; color: #F4A6B8; transform: rotate(2deg); }
+  .washi-bottom {
+    bottom: 30px; right: 80px;
+    background-color: #B49AD9; color: #B49AD9;
+    transform: rotate(-2deg);
+    width: 110px; height: 22px;
+  }
+
+  .title-banner {
+    background: #FFFFFF;
+    border: 4px solid #5B3A8A;
+    padding: 18px 12px 14px;
+    text-align: center;
+    margin: 38px 12px 18px;
+    box-shadow: inset 0 0 0 2px #B49AD9;
+  }
+  .title-banner h1 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 22px;
+    color: #5B3A8A;
+    margin: 0 0 14px;
+    line-height: 1.3;
+    letter-spacing: 1px;
+    font-weight: normal;
+    text-shadow: 2px 2px 0 #C9A0E8;
+  }
+  .title-banner .sub {
+    font-family: 'VT323', monospace;
+    font-size: 22px;
+    color: #7A5BA0;
+    letter-spacing: 1px;
+  }
+
+  .scene {
+    position: relative;
+    height: 320px;
+    margin: 0 12px;
+    background: linear-gradient(180deg,
+      #2D1B4E 0%, #2D1B4E 14%,
+      #3D2466 14%, #3D2466 28%,
+      #4D2D7A 28%, #4D2D7A 42%,
+      #5B3A8A 42%, #5B3A8A 56%,
+      #6E47A0 56%, #6E47A0 70%,
+      #7E54B0 70%, #7E54B0 84%,
+      #8B5FB8 84%, #8B5FB8 100%);
+    border: 4px solid #3D2466;
+    box-shadow: inset 0 0 0 2px #5B3A8A;
+    overflow: hidden;
+  }
+
+  .star { position: absolute; width: 4px; height: 4px; background: #FFFFFF; }
+  .star.dim { opacity: 0.6; width: 3px; height: 3px; }
+  .star.sparkle {
+    width: 4px; height: 4px; background: transparent;
+    box-shadow:
+      0 -4px 0 #FFFFFF, 0 4px 0 #FFFFFF,
+      -4px 0 0 #FFFFFF, 4px 0 0 #FFFFFF;
+    animation: twinkle 2s ease-in-out infinite;
+  }
+  .star.sparkle:nth-of-type(2) { animation-delay: 0.7s; }
+  .star.sparkle:nth-of-type(3) { animation-delay: 1.4s; }
+  @keyframes twinkle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .moon {
+    position: absolute;
+    top: 25px;
+    right: 40px;
+    width: 8px;
+    height: 8px;
+    background: #FFF4D6;
+    box-shadow:
+      8px 0 0 #FFF4D6, 16px 0 0 #FFF4D6, 24px 0 0 #FFF4D6, 32px 0 0 #FFF4D6,
+      -8px 8px 0 #FFF4D6, 0 8px 0 #FFF4D6, 8px 8px 0 #FFF4D6, 16px 8px 0 #FFF4D6, 24px 8px 0 #FFF4D6, 32px 8px 0 #FFF4D6, 40px 8px 0 #FFF4D6,
+      -16px 16px 0 #FFF4D6, -8px 16px 0 #FFF4D6, 0 16px 0 #FFF4D6, 8px 16px 0 #FFF4D6, 16px 16px 0 #E8DCB8, 24px 16px 0 #FFF4D6, 32px 16px 0 #FFF4D6, 40px 16px 0 #FFF4D6, 48px 16px 0 #FFF4D6,
+      -16px 24px 0 #FFF4D6, -8px 24px 0 #FFF4D6, 0 24px 0 #FFF4D6, 8px 24px 0 #FFF4D6, 16px 24px 0 #FFF4D6, 24px 24px 0 #FFF4D6, 32px 24px 0 #E8DCB8, 40px 24px 0 #FFF4D6, 48px 24px 0 #FFF4D6,
+      -16px 32px 0 #FFF4D6, -8px 32px 0 #E8DCB8, 0 32px 0 #FFF4D6, 8px 32px 0 #FFF4D6, 16px 32px 0 #FFF4D6, 24px 32px 0 #FFF4D6, 32px 32px 0 #FFF4D6, 40px 32px 0 #FFF4D6, 48px 32px 0 #FFF4D6,
+      -8px 40px 0 #FFF4D6, 0 40px 0 #FFF4D6, 8px 40px 0 #FFF4D6, 16px 40px 0 #FFF4D6, 24px 40px 0 #FFF4D6, 32px 40px 0 #FFF4D6, 40px 40px 0 #FFF4D6,
+      0 48px 0 #FFF4D6, 8px 48px 0 #FFF4D6, 16px 48px 0 #FFF4D6, 24px 48px 0 #FFF4D6, 32px 48px 0 #FFF4D6;
+  }
+
+  .hills { position: absolute; bottom: 0; left: 0; width: 100%; height: 60px; background: #2D1B4E; }
+  .hill-bump { position: absolute; bottom: 60px; width: 60px; height: 14px; background: #2D1B4E; }
+  .hill-bump::before { content: ""; position: absolute; top: -7px; left: 14px; width: 32px; height: 7px; background: #2D1B4E; }
+  .hill-bump::after  { content: ""; position: absolute; top: -14px; left: 22px; width: 16px; height: 7px; background: #2D1B4E; }
+  .hill-bump.h1 { left: 80px; }
+  .hill-bump.h2 { left: 280px; }
+  .hill-bump.h3 { left: 480px; }
+
+  .tree { position: absolute; bottom: 60px; width: 18px; height: 22px; }
+  .tree::before { content: ""; position: absolute; bottom: 0; left: 7px; width: 4px; height: 12px; background: #1A0F33; }
+  .tree::after  { content: ""; position: absolute; bottom: 8px; left: 0; width: 18px; height: 4px; background: #1A0F33; box-shadow: 4px -4px 0 #1A0F33, 4px -8px 0 #1A0F33; }
+  .tree.t1 { left: 30px; }
+  .tree.t2 { right: 30px; }
+
+  .heart {
+    position: absolute;
+    width: 4px; height: 4px;
+    background: transparent;
+    box-shadow:
+      0 0 0 #FF8FA3, 8px 0 0 #FF8FA3,
+      -4px 4px 0 #FF8FA3, 0 4px 0 #FF8FA3, 4px 4px 0 #FF8FA3, 8px 4px 0 #FF8FA3, 12px 4px 0 #FF8FA3,
+      0 8px 0 #FF8FA3, 4px 8px 0 #FF8FA3, 8px 8px 0 #FF8FA3,
+      4px 12px 0 #FF8FA3;
+    animation: heart-pulse 2.5s ease-in-out infinite;
+  }
+  .heart.h1 { top: 70px; left: 200px; }
+  .heart.h2 { top: 110px; left: 430px; animation-delay: 0.8s;
+    box-shadow:
+      0 0 0 #F4A6B8, 8px 0 0 #F4A6B8,
+      -4px 4px 0 #F4A6B8, 0 4px 0 #F4A6B8, 4px 4px 0 #F4A6B8, 8px 4px 0 #F4A6B8, 12px 4px 0 #F4A6B8,
+      0 8px 0 #F4A6B8, 4px 8px 0 #F4A6B8, 8px 8px 0 #F4A6B8,
+      4px 12px 0 #F4A6B8; }
+  .heart.h3 { top: 215px; left: 130px; animation-delay: 1.6s; }
+  @keyframes heart-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.15); }
+  }
+
+  .bat {
+    position: absolute;
+    width: 3px; height: 3px;
+    background: transparent;
+    box-shadow:
+      9px 0 0 #1A0F33,
+      3px 3px 0 #1A0F33, 6px 3px 0 #1A0F33, 9px 3px 0 #1A0F33, 12px 3px 0 #1A0F33,
+      0 6px 0 #1A0F33, 15px 6px 0 #1A0F33;
+    animation: bat-fly 8s linear infinite;
+  }
+  .bat.b1 { top: 50px; left: 240px; }
+  .bat.b2 { top: 80px; left: 380px; animation-delay: 3s; animation-duration: 10s; }
+  @keyframes bat-fly {
+    0%   { transform: translate(0, 0); }
+    25%  { transform: translate(20px, -8px); }
+    50%  { transform: translate(40px, 5px); }
+    75%  { transform: translate(15px, 10px); }
+    100% { transform: translate(0, 0); }
+  }
+
+  /* Image zones — coordinates only; transforms come from per-zone CSS at top */
+  .img-zone {
+    position: absolute;
+    overflow: visible;
+    pointer-events: none;
+  }
+  .img-zone img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    transform:
+      translate(var(--x), var(--y))
+      rotate(var(--rot))
+      scale(calc(var(--scale) * var(--flip-h)), calc(var(--scale) * var(--flip-v)));
+    transform-origin: center center;
+  }
+  /* Hide broken images so missing files don't show alt text */
+  .img-zone img:not([src]),
+  .img-zone img[src=""] { display: none; }
+
+  .zone-haunter {
+    top: 70px; left: 50%;
+    width: 160px; height: 132px;
+    margin-left: -80px;
+    animation: haunter-float 3.2s ease-in-out infinite;
+  }
+  @keyframes haunter-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .zone-wisp {
+    top: 38px; right: 85px;
+    width: 56px; height: 70px;
+    animation: wisp-float 4.5s ease-in-out infinite;
+  }
+  @keyframes wisp-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .zone-lucky {
+    bottom: 56px; left: 40px;
+    width: 90px; height: 113px;
+  }
+
+  /* Message panel */
+  .message-panel {
+    background: #FFFFFF;
+    border: 4px solid #D4A574;
+    margin: 18px 12px 12px;
+    padding: 18px 22px 22px 50px;
+    position: relative;
+    transform: rotate(-0.5deg);
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.08);
+  }
+  .holes {
+    position: absolute;
+    left: 22px; top: 24px; bottom: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  .hole {
+    width: 8px; height: 8px;
+    background: #FFFBF3;
+    border: 1px solid #D4A574;
+  }
+  .message-panel h2 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 14px;
+    color: #5A3A2A;
+    margin: 0 0 14px;
+    letter-spacing: 1px;
+    font-weight: normal;
+  }
+  .message-panel p {
+    font-family: 'VT323', monospace;
+    font-size: 22px;
+    color: #5A3A2A;
+    line-height: 1.3;
+    margin: 0 0 10px;
+    letter-spacing: 0.5px;
+  }
+  .signoff {
+    font-family: 'Press Start 2P', monospace !important;
+    font-size: 12px !important;
+    color: #5B3A8A !important;
+    margin-top: 14px !important;
+    letter-spacing: 1px;
+    line-height: 1.6 !important;
+  }
+
+  .sticker { position: absolute; }
+  .sticker-star {
+    top: 14px; right: 18px;
+    width: 4px; height: 4px;
+    background: transparent;
+    box-shadow:
+      8px 0 0 #FFD56B,
+      4px 4px 0 #FFD56B, 8px 4px 0 #E8B838, 12px 4px 0 #FFD56B,
+      0 8px 0 #FFD56B, 4px 8px 0 #FFD56B, 8px 8px 0 #FFD56B, 12px 8px 0 #FFD56B, 16px 8px 0 #FFD56B,
+      4px 12px 0 #FFD56B, 8px 12px 0 #FFD56B, 12px 12px 0 #FFD56B,
+      0 16px 0 #FFD56B, 4px 16px 0 #FFD56B, 12px 16px 0 #FFD56B, 16px 16px 0 #FFD56B;
+  }
+  .sticker-heart {
+    bottom: 14px; right: 18px;
+    width: 4px; height: 4px;
+    background: transparent;
+    box-shadow:
+      0 0 0 #B49AD9, 8px 0 0 #B49AD9,
+      -4px 4px 0 #B49AD9, 0 4px 0 #B49AD9, 4px 4px 0 #B49AD9, 8px 4px 0 #B49AD9, 12px 4px 0 #B49AD9,
+      0 8px 0 #B49AD9, 4px 8px 0 #B49AD9, 8px 8px 0 #B49AD9,
+      4px 12px 0 #B49AD9;
+  }
+
+  /* ============================================================ */
+  /* Mobile: scale whole card down so 680px design fits any width */
+  /* ============================================================ */
+  @media (max-width: 720px) {
+    body { zoom: calc(100vw / 720px); }
+  }
+  /* Fallback for browsers without `zoom` support */
+  @supports not (zoom: 1) {
+    @media (max-width: 720px) {
+      body {
+        transform: scale(calc(100vw / 720px));
+        transform-origin: top center;
+        width: 720px;
+        overflow-x: hidden;
+      }
+    }
+  }
+</style>
+</head>
+<body>
+<div class="card-wrapper">
+  <div class="card">
+    <div class="corner-bl"></div>
+    <div class="corner-br"></div>
+
+    <div class="washi washi-left"></div>
+    <div class="washi washi-right"></div>
+
+    <div class="title-banner">
+      <h1>HAPPY MOTHER'S DAY</h1>
+      <div class="sub">~ from me and some virtual friends! ~</div>
+    </div>
+
+    <div class="scene">
+      <div class="star" style="top: 18px; left: 40px;"></div>
+      <div class="star dim" style="top: 38px; left: 110px;"></div>
+      <div class="star" style="top: 12px; left: 170px;"></div>
+      <div class="star" style="top: 60px; left: 80px;"></div>
+      <div class="star dim" style="top: 90px; left: 30px;"></div>
+      <div class="star" style="top: 130px; left: 60px;"></div>
+      <div class="star dim" style="top: 165px; left: 220px;"></div>
+      <div class="star" style="top: 50px; left: 320px;"></div>
+      <div class="star dim" style="top: 100px; left: 350px;"></div>
+      <div class="star" style="top: 140px; left: 410px;"></div>
+      <div class="star dim" style="top: 170px; left: 480px;"></div>
+      <div class="star" style="top: 200px; left: 540px;"></div>
+      <div class="star dim" style="top: 75px; left: 580px;"></div>
+      <div class="star" style="top: 30px; left: 460px;"></div>
+      <div class="star sparkle" style="top: 90px; left: 150px;"></div>
+      <div class="star sparkle" style="top: 175px; left: 380px;"></div>
+      <div class="star sparkle" style="top: 130px; left: 510px;"></div>
+
+      <div class="moon"></div>
+
+      <div class="bat b1"></div>
+      <div class="bat b2"></div>
+
+      <div class="heart h1"></div>
+      <div class="heart h2"></div>
+      <div class="heart h3"></div>
+
+      <div class="hills"></div>
+      <div class="hill-bump h1"></div>
+      <div class="hill-bump h2"></div>
+      <div class="hill-bump h3"></div>
+      <div class="tree t1"></div>
+      <div class="tree t2"></div>
+
+      <div class="img-zone zone-haunter">
+        <img src="images/haunter.png" alt="" onerror="this.style.display='none'"/>
+      </div>
+      <div class="img-zone zone-wisp">
+        <img src="images/wisp.png" alt="" onerror="this.style.display='none'"/>
+      </div>
+      <div class="img-zone zone-lucky">
+        <img src="images/lucky.png" alt="" onerror="this.style.display='none'"/>
+      </div>
+    </div>
+
+    <div class="message-panel">
+      <div class="holes">
+        <div class="hole"></div>
+        <div class="hole"></div>
+        <div class="hole"></div>
+        <div class="hole"></div>
+        <div class="hole"></div>
+        <div class="hole"></div>
+      </div>
+      <h2>DEAR MOM,</h2>
+      <p>Love you! Wanted to use a little of my skills this year to come up with a new way to present you a card :).</p>
+      <p class="signoff">&lt;3 LOVE YOU TO<br/>THE MOON AND BACK,<br/>&mdash; BRANDON</p>
+      <div class="sticker sticker-star"></div>
+      <div class="sticker sticker-heart"></div>
+    </div>
+
+    <div class="washi washi-bottom"></div>
+  </div>
+</div>
+</body>
+</html>
