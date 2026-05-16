@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Dad</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    padding: 32px 12px;
+    background: #0A130A;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: 'VT323', 'Courier New', monospace;
+    position: relative;
+  }
+
+  /* =========================================================
+     FOREST BACKGROUND  (tiled pine forest behind the card)
+     ========================================================= */
+  .forest-bg {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    image-rendering: pixelated;
+  }
+  /* Vignette so center is darker, focusing eye on the card */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.55) 90%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    image-rendering: pixelated;
+  }
+
+  /* =========================================================
+     CARD  (outer wood frame + inner parchment paper)
+     ========================================================= */
+  .card {
+    width: 680px;
+    max-width: 100%;
+    position: relative;
+    padding: 18px;
+    box-sizing: border-box;
+    /* Wood plank background with grain */
+    background:
+      /* horizontal plank seams */
+      repeating-linear-gradient(0deg,
+        transparent 0 38px,
+        rgba(0,0,0,0.45) 38px 40px,
+        transparent 40px 78px,
+        rgba(255,255,255,0.05) 78px 79px),
+      /* vertical wood grain wisps */
+      repeating-linear-gradient(90deg,
+        rgba(0,0,0,0.08) 0 2px,
+        transparent 2px 7px,
+        rgba(255,255,255,0.04) 7px 8px,
+        transparent 8px 18px),
+      /* base wood gradient */
+      linear-gradient(180deg, #5A3520 0%, #6B4226 25%, #4A2D18 55%, #6B4226 80%, #5A3520 100%);
+    border: 3px solid #1F1108;
+    box-shadow:
+      inset 0 0 0 2px #8B5A2B,
+      inset 0 0 18px rgba(0,0,0,0.45),
+      0 10px 28px rgba(0,0,0,0.7);
+    image-rendering: pixelated;
+    animation: card-in 0.8s ease-out both;
+  }
+  @keyframes card-in {
+    0%   { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Brass rivets at the 4 corners of the wood frame */
+  .rivet {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: radial-gradient(circle at 35% 30%,
+      #FFE680 0%, #E8B038 25%, #B8861A 55%, #6B4D10 85%, #2A1B05 100%);
+    border-radius: 50%;
+    border: 1px solid #1A0E03;
+    box-shadow:
+      inset -1px -2px 2px rgba(0,0,0,0.55),
+      inset 1px 1px 1px rgba(255,230,120,0.5),
+      0 2px 3px rgba(0,0,0,0.6);
+    z-index: 3;
+  }
+  .rivet::after {
+    /* tiny cross-slot screw head */
+    content: "";
+    position: absolute;
+    inset: 4px;
+    background:
+      linear-gradient(90deg, transparent 45%, rgba(0,0,0,0.55) 45% 55%, transparent 55%),
+      linear-gradient(0deg,  transparent 45%, rgba(0,0,0,0.55) 45% 55%, transparent 55%);
+  }
+  .rivet.tl { top: 6px;    left: 6px; }
+  .rivet.tr { top: 6px;    right: 6px; }
+  .rivet.bl { bottom: 6px; left: 6px; }
+  .rivet.br { bottom: 6px; right: 6px; }
+
+  /* Inner parchment paper area */
+  .paper {
+    background: #F4E2B8;
+    padding: 22px 18px 20px;
+    border: 3px solid #2A1810;
+    box-shadow:
+      inset 0 0 0 2px #8B5A2B,
+      inset 0 0 22px rgba(139, 90, 43, 0.18);
+    position: relative;
+  }
+  /* Subtle parchment specks */
+  .paper::before {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    background-image:
+      radial-gradient(circle at 12% 30%, rgba(139,90,43,0.07) 0 2px, transparent 3px),
+      radial-gradient(circle at 80% 60%, rgba(139,90,43,0.07) 0 2px, transparent 3px),
+      radial-gradient(circle at 45% 88%, rgba(139,90,43,0.06) 0 2px, transparent 3px);
+    pointer-events: none;
+  }
+
+  /* =========================================================
+     TITLE BANNER  (wood-burned plaque feel)
+     ========================================================= */
+  .title-banner {
+    background: #E8C98A;
+    border: 4px solid #3A2014;
+    padding: 18px 12px 14px;
+    text-align: center;
+    margin: 0 0 18px;
+    box-shadow:
+      inset 0 0 0 2px #8B5A2B,
+      inset 0 0 24px rgba(74, 45, 24, 0.35);
+    position: relative;
+  }
+  /* Iron nail heads in the banner corners */
+  .title-banner::before,
+  .title-banner::after {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle at 35% 30%, #888 0%, #555 50%, #222 100%);
+    border-radius: 50%;
+    border: 1px solid #1A1A1A;
+    top: 6px;
+  }
+  .title-banner::before { left: 8px; }
+  .title-banner::after  { right: 8px; }
+  .title-banner h1 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 22px;
+    color: #3A2014;
+    margin: 0 0 14px;
+    line-height: 1.3;
+    letter-spacing: 1px;
+    font-weight: normal;
+    text-shadow:
+      1px 1px 0 #C09454,
+      2px 2px 0 rgba(0,0,0,0.25);
+  }
+  .title-banner .sub {
+    font-family: 'VT323', monospace;
+    font-size: 22px;
+    color: #5A3520;
+    letter-spacing: 1px;
+  }
+
+  /* =========================================================
+     SCENE  (sundown grill scene)
+     ========================================================= */
+  .scene {
+    position: relative;
+    height: 360px;
+    margin: 0;
+    border: 4px solid #2A1810;
+    box-shadow: inset 0 0 0 2px #8B5A2B;
+    overflow: hidden;
+    background: #060718;
+  }
+  .scene svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+  }
+
+  /* Animated smoke rising from grill */
+  .smoke-puff {
+    transform-origin: center;
+    animation: smoke-rise 4s ease-out infinite;
+    opacity: 0;
+  }
+  .smoke-puff.p1 { animation-delay: 0s; }
+  .smoke-puff.p2 { animation-delay: 1.3s; }
+  .smoke-puff.p3 { animation-delay: 2.6s; }
+  @keyframes smoke-rise {
+    0%   { transform: translate(0, 0) scale(1); opacity: 0; }
+    15%  { opacity: 0.85; }
+    50%  { opacity: 0.6; }
+    100% { transform: translate(-3px, -22px) scale(1.6); opacity: 0; }
+  }
+
+  /* Flickering flames in the grill */
+  .flames {
+    animation: flame-flicker 0.45s steps(2, end) infinite;
+  }
+  @keyframes flame-flicker {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.75; }
+  }
+
+  /* Pulsing sun glow */
+  .sun-glow {
+    animation: sun-pulse 3.5s ease-in-out infinite;
+  }
+  @keyframes sun-pulse {
+    0%, 100% { opacity: 0.55; }
+    50%      { opacity: 0.85; }
+  }
+
+  /* Twinkling stars */
+  .star-twinkle { animation: twinkle 2.4s ease-in-out infinite; }
+  .star-twinkle.s2 { animation-delay: 0.8s; }
+  .star-twinkle.s3 { animation-delay: 1.6s; }
+  @keyframes twinkle {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.2; }
+  }
+
+  /* Birds drifting across the sky */
+  .bird-flock { animation: bird-drift 16s linear infinite; }
+  @keyframes bird-drift {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(40px); }
+  }
+
+  /* =========================================================
+     MESSAGE PANEL  (wood-framed parchment plaque)
+     ========================================================= */
+  .message-panel {
+    background: #F4E2B8;
+    border: 5px solid #3A2014;
+    margin: 18px 0 0;
+    padding: 18px 22px 22px 22px;
+    position: relative;
+    box-shadow:
+      inset 0 0 0 2px #8B5A2B,
+      inset 0 0 22px rgba(74,45,24,0.18),
+      4px 4px 0 rgba(0,0,0,0.25);
+  }
+  /* Iron screw heads at the 4 corners of the plaque */
+  .screw {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle at 35% 30%, #999 0%, #555 50%, #222 100%);
+    border-radius: 50%;
+    border: 1px solid #1A1A1A;
+  }
+  .screw::after {
+    /* slot */
+    content: "";
+    position: absolute;
+    inset: 1px 0;
+    background: linear-gradient(90deg, transparent 35%, rgba(0,0,0,0.7) 35% 65%, transparent 65%);
+    transform: rotate(35deg);
+  }
+  .screw.tl { top: 5px;    left: 5px; }
+  .screw.tr { top: 5px;    right: 5px; }
+  .screw.bl { bottom: 5px; left: 5px; }
+  .screw.br { bottom: 5px; right: 5px; }
+
+  .message-panel h2 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 14px;
+    color: #3A2014;
+    margin: 0 0 14px;
+    letter-spacing: 1px;
+    font-weight: normal;
+    text-shadow: 1px 1px 0 rgba(139,90,43,0.35);
+  }
+  .message-panel p {
+    font-family: 'VT323', monospace;
+    font-size: 22px;
+    color: #3A2014;
+    line-height: 1.3;
+    margin: 0 0 10px;
+    letter-spacing: 0.5px;
+  }
+  .signoff {
+    font-family: 'Press Start 2P', monospace !important;
+    font-size: 12px !important;
+    color: #5A3520 !important;
+    margin-top: 14px !important;
+    letter-spacing: 1px;
+    line-height: 1.6 !important;
+  }
+
+  @media (max-width: 720px) {
+    body { zoom: calc(100vw / 720px); }
+  }
+  @supports not (zoom: 1) {
+    @media (max-width: 720px) {
+      body {
+        transform: scale(calc(100vw / 720px));
+        transform-origin: top center;
+        width: 720px;
+        overflow-x: hidden;
+      }
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- =========================================================
+     FOREST BACKGROUND  (tiled pixel pines behind the card)
+     ========================================================= -->
+<svg class="forest-bg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges">
+  <defs>
+    <pattern id="pines" width="80" height="100" patternUnits="userSpaceOnUse">
+      <!-- Tile base -->
+      <rect width="80" height="100" fill="#0E1A09"/>
+
+      <!-- Subtle forest-floor speckle -->
+      <rect x="6"  y="92" width="1" height="1" fill="#1A2D14"/>
+      <rect x="34" y="86" width="1" height="1" fill="#1A2D14"/>
+      <rect x="58" y="94" width="1" height="1" fill="#1A2D14"/>
+      <rect x="72" y="80" width="1" height="1" fill="#1A2D14"/>
+      <rect x="22" y="78" width="1" height="1" fill="#1A2D14"/>
+
+      <!-- Back tree (small, very dark) -->
+      <g fill="#16240F">
+        <rect x="44" y="6"  width="2" height="2"/>
+        <rect x="42" y="8"  width="6" height="2"/>
+        <rect x="44" y="10" width="2" height="2"/>
+        <rect x="40" y="12" width="10" height="2"/>
+        <rect x="42" y="14" width="6"  height="2"/>
+        <rect x="38" y="16" width="14" height="2"/>
+        <rect x="44" y="18" width="2"  height="6"/>
+      </g>
+
+      <!-- Mid pine tree (left of tile) -->
+      <g fill="#1E3315">
+        <rect x="14" y="14" width="2" height="2"/>
+        <rect x="12" y="16" width="6" height="2"/>
+        <rect x="14" y="18" width="2" height="2"/>
+        <rect x="10" y="20" width="10" height="2"/>
+        <rect x="12" y="22" width="6"  height="2"/>
+        <rect x="8"  y="24" width="14" height="2"/>
+        <rect x="12" y="26" width="6"  height="2"/>
+        <rect x="6"  y="28" width="18" height="2"/>
+        <rect x="10" y="30" width="10" height="2"/>
+        <rect x="4"  y="32" width="22" height="2"/>
+        <rect x="14" y="34" width="2"  height="8"/>
+      </g>
+
+      <!-- Foreground pine tree (right of tile, taller) -->
+      <g fill="#27431D">
+        <rect x="58" y="34" width="2" height="2"/>
+        <rect x="56" y="36" width="6" height="2"/>
+        <rect x="58" y="38" width="2" height="2"/>
+        <rect x="54" y="40" width="10" height="2"/>
+        <rect x="56" y="42" width="6"  height="2"/>
+        <rect x="52" y="44" width="14" height="2"/>
+        <rect x="56" y="46" width="6"  height="2"/>
+        <rect x="50" y="48" width="18" height="2"/>
+        <rect x="54" y="50" width="10" height="2"/>
+        <rect x="48" y="52" width="22" height="2"/>
+        <rect x="52" y="54" width="14" height="2"/>
+        <rect x="46" y="56" width="26" height="2"/>
+        <rect x="58" y="58" width="2"  height="10"/>
+      </g>
+
+      <!-- Lower-left smaller pine -->
+      <g fill="#1A2D12">
+        <rect x="26" y="58" width="2" height="2"/>
+        <rect x="24" y="60" width="6" height="2"/>
+        <rect x="26" y="62" width="2" height="2"/>
+        <rect x="22" y="64" width="10" height="2"/>
+        <rect x="24" y="66" width="6"  height="2"/>
+        <rect x="20" y="68" width="14" height="2"/>
+        <rect x="26" y="70" width="2"  height="6"/>
+      </g>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#pines)"/>
+</svg>
+
+<div class="card-wrapper">
+  <div class="card">
+    <div class="rivet tl"></div>
+    <div class="rivet tr"></div>
+    <div class="rivet bl"></div>
+    <div class="rivet br"></div>
+
+    <div class="paper">
+
+      <div class="title-banner">
+        <h1>HAPPY BIRTHDAY DAD</h1>
+        <div class="sub">~ under the stars, grill on, beers cold ~</div>
+      </div>
+
+      <div class="scene">
+        <svg viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges">
+
+          <!-- =========================================================
+               SKY  (darker twilight — deep navy to faint horizon tint)
+               ========================================================= -->
+          <rect x="0" y="0"  width="160" height="7" fill="#060718"/>
+          <rect x="0" y="7"  width="160" height="6" fill="#0A0E22"/>
+          <rect x="0" y="13" width="160" height="6" fill="#131634"/>
+          <rect x="0" y="19" width="160" height="6" fill="#1D1F44"/>
+          <rect x="0" y="25" width="160" height="6" fill="#262458"/>
+          <rect x="0" y="31" width="160" height="6" fill="#322864"/>
+          <rect x="0" y="37" width="160" height="6" fill="#3D2A68"/>
+          <rect x="0" y="43" width="160" height="6" fill="#4A2D5E"/>
+          <rect x="0" y="49" width="160" height="5" fill="#583254"/>
+          <rect x="0" y="54" width="160" height="2" fill="#6B3A4C"/>
+
+          <!-- Stars (more visible against the darker sky) -->
+          <g fill="#FFFFFF">
+            <rect x="4"   y="3"  width="1" height="1"/>
+            <rect x="12"  y="7"  width="1" height="1"/>
+            <rect x="20"  y="2"  width="1" height="1"/>
+            <rect x="28"  y="11" width="1" height="1"/>
+            <rect x="36"  y="5"  width="1" height="1"/>
+            <rect x="44"  y="14" width="1" height="1"/>
+            <rect x="52"  y="3"  width="1" height="1"/>
+            <rect x="60"  y="9"  width="1" height="1"/>
+            <rect x="68"  y="2"  width="1" height="1"/>
+            <rect x="76"  y="12" width="1" height="1"/>
+            <rect x="84"  y="5"  width="1" height="1"/>
+            <rect x="92"  y="8"  width="1" height="1"/>
+            <rect x="100" y="3"  width="1" height="1"/>
+            <rect x="108" y="13" width="1" height="1"/>
+            <rect x="116" y="6"  width="1" height="1"/>
+            <rect x="140" y="3"  width="1" height="1"/>
+            <rect x="148" y="11" width="1" height="1"/>
+            <rect x="156" y="5"  width="1" height="1"/>
+            <rect x="32"  y="22" width="1" height="1"/>
+            <rect x="80"  y="28" width="1" height="1"/>
+            <rect x="120" y="24" width="1" height="1"/>
+          </g>
+          <g fill="#FFFFFF" opacity="0.6">
+            <rect x="8"   y="11" width="1" height="1"/>
+            <rect x="24"  y="15" width="1" height="1"/>
+            <rect x="48"  y="7"  width="1" height="1"/>
+            <rect x="72"  y="17" width="1" height="1"/>
+            <rect x="96"  y="14" width="1" height="1"/>
+            <rect x="128" y="9"  width="1" height="1"/>
+            <rect x="152" y="15" width="1" height="1"/>
+          </g>
+          <g class="star-twinkle">    <rect x="14"  y="9"  width="1" height="1" fill="#FFFFFF"/></g>
+          <g class="star-twinkle s2"> <rect x="64"  y="6"  width="1" height="1" fill="#FFFFFF"/></g>
+          <g class="star-twinkle s3"> <rect x="132" y="11" width="1" height="1" fill="#FFFFFF"/></g>
+
+          <!-- =========================================================
+               PLANETS  (Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune)
+               ========================================================= -->
+
+          <!-- Mercury (tiny gray dot, closest to where the sun went down) -->
+          <rect x="18" y="10" width="1" height="1" fill="#B0B0B0"/>
+
+          <!-- Venus (bright cream "evening star", with subtle halo) -->
+          <rect x="45" y="22" width="1" height="2" fill="#F5E6A8" opacity="0.3"/>
+          <rect x="48" y="22" width="1" height="2" fill="#F5E6A8" opacity="0.3"/>
+          <rect x="46" y="21" width="2" height="1" fill="#F5E6A8" opacity="0.3"/>
+          <rect x="46" y="24" width="2" height="1" fill="#F5E6A8" opacity="0.3"/>
+          <rect x="46" y="22" width="2" height="2" fill="#F5E6A8"/>
+          <rect x="46" y="22" width="1" height="1" fill="#FFFFFF"/>
+
+          <!-- Mars (small red planet with halo) -->
+          <rect x="123" y="18" width="1" height="2" fill="#C0392B" opacity="0.3"/>
+          <rect x="126" y="18" width="1" height="2" fill="#C0392B" opacity="0.3"/>
+          <rect x="124" y="17" width="2" height="1" fill="#C0392B" opacity="0.3"/>
+          <rect x="124" y="20" width="2" height="1" fill="#C0392B" opacity="0.3"/>
+          <rect x="124" y="18" width="2" height="2" fill="#C0392B"/>
+          <rect x="124" y="18" width="1" height="1" fill="#E74C3C"/>
+          <rect x="125" y="19" width="1" height="1" fill="#8B2A22"/>
+
+          <!-- Jupiter (banded cream + brown, with great-red-spot hint) -->
+          <rect x="68" y="13" width="3" height="1" fill="#D2A76B"/>
+          <rect x="68" y="14" width="3" height="1" fill="#A0703C"/>
+          <rect x="69" y="13" width="1" height="1" fill="#E8C088"/>
+          <rect x="69" y="14" width="1" height="1" fill="#C4915A"/>
+
+          <!-- Saturn (cream body with horizontal rings) -->
+          <rect x="88" y="26" width="2" height="1" fill="#C8AB7D" opacity="0.7"/>
+          <rect x="93" y="26" width="2" height="1" fill="#C8AB7D" opacity="0.7"/>
+          <rect x="91" y="25" width="2" height="2" fill="#E0C896"/>
+          <rect x="91" y="25" width="1" height="1" fill="#F0DAA6"/>
+
+          <!-- Uranus (pale cyan) -->
+          <rect x="140" y="33" width="2" height="2" fill="#88C7D2"/>
+          <rect x="140" y="33" width="1" height="1" fill="#A8DCE5"/>
+
+          <!-- Neptune (deep blue) -->
+          <rect x="12" y="38" width="2" height="2" fill="#4A6BC9"/>
+          <rect x="12" y="38" width="1" height="1" fill="#6A8BE9"/>
+
+          <!-- =========================================================
+               FOREST BACKDROP  (dense pine treeline behind the figures)
+               ========================================================= -->
+          <!-- Far/back trees (smaller, darkest) -->
+          <g fill="#162714">
+            <!-- A1 cx=5 -->
+            <rect x="4"  y="58" width="2" height="2"/>
+            <rect x="3"  y="60" width="4" height="2"/>
+            <rect x="2"  y="62" width="6" height="3"/>
+            <rect x="1"  y="65" width="8" height="3"/>
+            <rect x="4"  y="68" width="2" height="4"/>
+            <!-- A2 cx=25 -->
+            <rect x="24" y="58" width="2" height="2"/>
+            <rect x="23" y="60" width="4" height="2"/>
+            <rect x="22" y="62" width="6" height="3"/>
+            <rect x="21" y="65" width="8" height="3"/>
+            <rect x="24" y="68" width="2" height="4"/>
+            <!-- A3 cx=78 -->
+            <rect x="77" y="58" width="2" height="2"/>
+            <rect x="76" y="60" width="4" height="2"/>
+            <rect x="75" y="62" width="6" height="3"/>
+            <rect x="74" y="65" width="8" height="3"/>
+            <rect x="77" y="68" width="2" height="4"/>
+            <!-- A4 cx=100 -->
+            <rect x="99" y="58" width="2" height="2"/>
+            <rect x="98" y="60" width="4" height="2"/>
+            <rect x="97" y="62" width="6" height="3"/>
+            <rect x="96" y="65" width="8" height="3"/>
+            <rect x="99" y="68" width="2" height="4"/>
+            <!-- A5 cx=140 -->
+            <rect x="139" y="58" width="2" height="2"/>
+            <rect x="138" y="60" width="4" height="2"/>
+            <rect x="137" y="62" width="6" height="3"/>
+            <rect x="136" y="65" width="8" height="3"/>
+            <rect x="139" y="68" width="2" height="4"/>
+          </g>
+
+          <!-- Mid trees (medium height) -->
+          <g fill="#1F3315">
+            <!-- B1 cx=15 -->
+            <rect x="14" y="54" width="2"  height="2"/>
+            <rect x="13" y="56" width="4"  height="2"/>
+            <rect x="12" y="58" width="6"  height="2"/>
+            <rect x="11" y="60" width="8"  height="3"/>
+            <rect x="10" y="63" width="10" height="3"/>
+            <rect x="9"  y="66" width="12" height="3"/>
+            <rect x="14" y="69" width="2"  height="3"/>
+            <!-- B2 cx=33 -->
+            <rect x="32" y="54" width="2"  height="2"/>
+            <rect x="31" y="56" width="4"  height="2"/>
+            <rect x="30" y="58" width="6"  height="2"/>
+            <rect x="29" y="60" width="8"  height="3"/>
+            <rect x="28" y="63" width="10" height="3"/>
+            <rect x="27" y="66" width="12" height="3"/>
+            <rect x="32" y="69" width="2"  height="3"/>
+            <!-- B3 cx=88 -->
+            <rect x="87" y="54" width="2"  height="2"/>
+            <rect x="86" y="56" width="4"  height="2"/>
+            <rect x="85" y="58" width="6"  height="2"/>
+            <rect x="84" y="60" width="8"  height="3"/>
+            <rect x="83" y="63" width="10" height="3"/>
+            <rect x="82" y="66" width="12" height="3"/>
+            <rect x="87" y="69" width="2"  height="3"/>
+            <!-- B4 cx=152 -->
+            <rect x="151" y="54" width="2"  height="2"/>
+            <rect x="150" y="56" width="4"  height="2"/>
+            <rect x="149" y="58" width="6"  height="2"/>
+            <rect x="148" y="60" width="8"  height="3"/>
+            <rect x="147" y="63" width="10" height="3"/>
+            <rect x="146" y="66" width="12" height="3"/>
+            <rect x="151" y="69" width="2"  height="3"/>
+          </g>
+
+          <!-- Tall foreground trees (closest, slightly lighter green) -->
+          <g fill="#243B1A">
+            <!-- C1 cx=45 -->
+            <rect x="44" y="50" width="2"  height="2"/>
+            <rect x="43" y="52" width="4"  height="2"/>
+            <rect x="42" y="54" width="6"  height="2"/>
+            <rect x="41" y="56" width="8"  height="3"/>
+            <rect x="40" y="59" width="10" height="3"/>
+            <rect x="39" y="62" width="12" height="3"/>
+            <rect x="38" y="65" width="14" height="3"/>
+            <rect x="44" y="68" width="2"  height="4"/>
+            <!-- C2 cx=120 -->
+            <rect x="119" y="50" width="2"  height="2"/>
+            <rect x="118" y="52" width="4"  height="2"/>
+            <rect x="117" y="54" width="6"  height="2"/>
+            <rect x="116" y="56" width="8"  height="3"/>
+            <rect x="115" y="59" width="10" height="3"/>
+            <rect x="114" y="62" width="12" height="3"/>
+            <rect x="113" y="65" width="14" height="3"/>
+            <rect x="119" y="68" width="2"  height="4"/>
+            <!-- C3 cx=58 -->
+            <rect x="57" y="52" width="2"  height="2"/>
+            <rect x="56" y="54" width="4"  height="2"/>
+            <rect x="55" y="56" width="6"  height="2"/>
+            <rect x="54" y="58" width="8"  height="3"/>
+            <rect x="53" y="61" width="10" height="3"/>
+            <rect x="52" y="64" width="12" height="4"/>
+            <rect x="57" y="68" width="2"  height="4"/>
+            <!-- C4 cx=70 -->
+            <rect x="69" y="52" width="2"  height="2"/>
+            <rect x="68" y="54" width="4"  height="2"/>
+            <rect x="67" y="56" width="6"  height="2"/>
+            <rect x="66" y="58" width="8"  height="3"/>
+            <rect x="65" y="61" width="10" height="3"/>
+            <rect x="64" y="64" width="12" height="4"/>
+            <rect x="69" y="68" width="2"  height="4"/>
+            <!-- C5 cx=110 -->
+            <rect x="109" y="52" width="2"  height="2"/>
+            <rect x="108" y="54" width="4"  height="2"/>
+            <rect x="107" y="56" width="6"  height="2"/>
+            <rect x="106" y="58" width="8"  height="3"/>
+            <rect x="105" y="61" width="10" height="3"/>
+            <rect x="104" y="64" width="12" height="4"/>
+            <rect x="109" y="68" width="2"  height="4"/>
+          </g>
+
+          <!-- =========================================================
+               GROUND  (darker grass for night scene)
+               ========================================================= -->
+          <rect x="0" y="72" width="160" height="6"  fill="#2A4216"/>
+          <rect x="0" y="78" width="160" height="8"  fill="#1F3010"/>
+          <rect x="0" y="86" width="160" height="14" fill="#172409"/>
+
+          <g fill="#3A5C1C" opacity="0.7">
+            <rect x="6"   y="74" width="1" height="1"/>
+            <rect x="34"  y="75" width="1" height="1"/>
+            <rect x="98"  y="74" width="1" height="1"/>
+            <rect x="148" y="75" width="1" height="1"/>
+          </g>
+          <g fill="#101A06" opacity="0.9">
+            <rect x="14"  y="79" width="1" height="1"/>
+            <rect x="28"  y="83" width="1" height="1"/>
+            <rect x="60"  y="86" width="1" height="1"/>
+            <rect x="92"  y="80" width="1" height="1"/>
+            <rect x="120" y="84" width="1" height="1"/>
+            <rect x="138" y="94" width="2" height="1"/>
+            <rect x="8"   y="96" width="2" height="1"/>
+            <rect x="44"  y="98" width="2" height="1"/>
+            <rect x="96"  y="93" width="2" height="1"/>
+            <rect x="152" y="92" width="1" height="1"/>
+          </g>
+
+          <!-- =========================================================
+               TABLE  (side table on the right)
+               ========================================================= -->
+          <rect x="108" y="76" width="22" height="2" fill="#8B5A2B"/>
+          <rect x="108" y="78" width="22" height="1" fill="#6B4226"/>
+          <rect x="112" y="76" width="14" height="1" fill="#A47140" opacity="0.6"/>
+          <rect x="110" y="79" width="2"  height="10" fill="#5A3A1F"/>
+          <rect x="126" y="79" width="2"  height="10" fill="#5A3A1F"/>
+          <rect x="111" y="84" width="16" height="1"  fill="#5A3A1F"/>
+
+          <!-- =========================================================
+               BEER on table (single, centered — dad's beer)
+               ========================================================= -->
+          <rect x="118" y="69" width="2" height="2" fill="#3F2310"/>
+          <rect x="118" y="68" width="2" height="1" fill="#D4A030"/>
+          <rect x="117" y="71" width="4" height="1" fill="#5A3520"/>
+          <rect x="117" y="72" width="4" height="4" fill="#5A3520"/>
+          <rect x="117" y="73" width="4" height="2" fill="#F4D670"/>
+          <rect x="118" y="73" width="2" height="1" fill="#C58B3A"/>
+          <rect x="117" y="72" width="1" height="3" fill="#8B5A35" opacity="0.7"/>
+          <rect x="120" y="72" width="1" height="3" fill="#3F2310" opacity="0.5"/>
+
+          <!-- =========================================================
+               GRILL  (Weber-style kettle, lid open, flames inside)
+               ========================================================= -->
+          <rect x="75" y="56" width="2" height="2" fill="#1A1A1A"/>
+          <rect x="70" y="58" width="12" height="1" fill="#2C2C2C"/>
+          <rect x="68" y="59" width="16" height="1" fill="#2C2C2C"/>
+          <rect x="67" y="60" width="18" height="1" fill="#2C2C2C"/>
+          <rect x="66" y="61" width="20" height="1" fill="#2C2C2C"/>
+          <rect x="66" y="62" width="20" height="2" fill="#1F1F1F"/>
+          <rect x="75" y="60" width="2" height="1" fill="#4A4A4A"/>
+          <rect x="66" y="63" width="20" height="1" fill="#4A4A4A"/>
+          <g class="flames">
+            <rect x="68" y="64" width="1" height="1" fill="#FF6B35"/>
+            <rect x="70" y="64" width="2" height="1" fill="#FFB347"/>
+            <rect x="73" y="64" width="2" height="1" fill="#FF6B35"/>
+            <rect x="76" y="64" width="2" height="1" fill="#FFB347"/>
+            <rect x="79" y="64" width="2" height="1" fill="#FF6B35"/>
+            <rect x="82" y="64" width="2" height="1" fill="#FFB347"/>
+            <rect x="69" y="65" width="2" height="1" fill="#FFD56B"/>
+            <rect x="72" y="65" width="3" height="1" fill="#FFB347"/>
+            <rect x="76" y="65" width="3" height="1" fill="#FFD56B"/>
+            <rect x="80" y="65" width="3" height="1" fill="#FFB347"/>
+          </g>
+          <rect x="66" y="66" width="20" height="3" fill="#2C2C2C"/>
+          <rect x="67" y="69" width="18" height="1" fill="#2C2C2C"/>
+          <rect x="68" y="70" width="16" height="1" fill="#2C2C2C"/>
+          <rect x="70" y="71" width="12" height="1" fill="#1F1F1F"/>
+          <rect x="66" y="66" width="20" height="1" fill="#4A4A4A"/>
+          <rect x="68" y="72" width="1" height="16" fill="#1A1A1A"/>
+          <rect x="75" y="72" width="1" height="16" fill="#1A1A1A"/>
+          <rect x="82" y="72" width="1" height="16" fill="#1A1A1A"/>
+          <rect x="67" y="87" width="3" height="1" fill="#1A1A1A"/>
+          <rect x="74" y="87" width="3" height="1" fill="#1A1A1A"/>
+          <rect x="81" y="87" width="3" height="1" fill="#1A1A1A"/>
+          <rect x="68" y="80" width="15" height="1" fill="#3A3A3A"/>
+
+          <!-- Smoke puffs rising from the grill -->
+          <g class="smoke-puff p1">
+            <rect x="74" y="55" width="1" height="1" fill="#DDDDDD"/>
+            <rect x="75" y="54" width="2" height="1" fill="#EEEEEE"/>
+            <rect x="77" y="55" width="1" height="1" fill="#CCCCCC"/>
+          </g>
+          <g class="smoke-puff p2">
+            <rect x="76" y="55" width="1" height="1" fill="#DDDDDD"/>
+            <rect x="77" y="54" width="2" height="1" fill="#EEEEEE"/>
+            <rect x="79" y="55" width="1" height="1" fill="#CCCCCC"/>
+          </g>
+          <g class="smoke-puff p3">
+            <rect x="73" y="55" width="1" height="1" fill="#CCCCCC"/>
+            <rect x="74" y="54" width="2" height="1" fill="#DDDDDD"/>
+            <rect x="76" y="55" width="1" height="1" fill="#BBBBBB"/>
+          </g>
+
+          <!-- =========================================================
+               DAD  (short hair, navy polo, khaki shorts, spatula)
+               Center ~x=49, feet at y=88
+               ========================================================= -->
+          <!-- Short crew-cut hair (just a thin cap on top) -->
+          <rect x="45" y="58" width="9"  height="1" fill="#3A2210"/>
+          <rect x="44" y="59" width="11" height="2" fill="#4A2C1A"/>
+          <!-- Tiny sideburn pixels -->
+          <rect x="44" y="61" width="1"  height="1" fill="#4A2C1A"/>
+          <rect x="54" y="61" width="1"  height="1" fill="#4A2C1A"/>
+
+          <!-- Head / face -->
+          <rect x="45" y="61" width="9"  height="6" fill="#FDB99B"/>
+          <!-- Ears -->
+          <rect x="44" y="63" width="1"  height="2" fill="#E89070"/>
+          <rect x="54" y="63" width="1"  height="2" fill="#E89070"/>
+          <!-- Eyes -->
+          <rect x="47" y="63" width="1"  height="1" fill="#1A1A1A"/>
+          <rect x="51" y="63" width="1"  height="1" fill="#1A1A1A"/>
+          <!-- Mustache (short) -->
+          <rect x="48" y="65" width="3"  height="1" fill="#4A2C1A"/>
+          <!-- Smile -->
+          <rect x="48" y="66" width="3"  height="1" fill="#8B4513"/>
+          <!-- Neck -->
+          <rect x="47" y="67" width="5"  height="1" fill="#E89070"/>
+
+          <!-- Polo shirt (navy) -->
+          <rect x="42" y="68" width="15" height="1" fill="#1E3D70"/>
+          <rect x="41" y="69" width="17" height="5" fill="#2D5AA0"/>
+          <!-- Collar V -->
+          <rect x="48" y="68" width="3"  height="1" fill="#1E3D70"/>
+          <rect x="49" y="69" width="1"  height="1" fill="#1E3D70"/>
+          <!-- Subtle vertical seam highlight -->
+          <rect x="49" y="70" width="1"  height="3" fill="#3A6BB0"/>
+          <!-- Shirt hem shadow -->
+          <rect x="41" y="73" width="17" height="1" fill="#1E3D70"/>
+
+          <!-- Left arm (down at side) -->
+          <rect x="40" y="70" width="1"  height="4" fill="#2D5AA0"/>
+          <rect x="40" y="74" width="1"  height="2" fill="#FDB99B"/>
+          <!-- Right arm extending toward grill with spatula -->
+          <rect x="58" y="70" width="3"  height="2" fill="#2D5AA0"/>
+          <rect x="61" y="71" width="3"  height="2" fill="#FDB99B"/>
+          <rect x="64" y="71" width="1"  height="2" fill="#FDB99B"/>
+          <!-- Spatula handle (wood) -->
+          <rect x="64" y="73" width="3"  height="1" fill="#8B5A2B"/>
+          <rect x="65" y="72" width="2"  height="1" fill="#8B5A2B"/>
+          <!-- Spatula head (metal) -->
+          <rect x="67" y="71" width="3"  height="3" fill="#AAAAAA"/>
+          <rect x="67" y="71" width="3"  height="1" fill="#CCCCCC"/>
+          <rect x="67" y="73" width="3"  height="1" fill="#777777"/>
+
+          <!-- Belt -->
+          <rect x="41" y="74" width="17" height="1" fill="#2A1810"/>
+          <rect x="49" y="74" width="1"  height="1" fill="#D4A030"/>  <!-- buckle -->
+
+          <!-- Khaki shorts -->
+          <rect x="42" y="75" width="15" height="4" fill="#A88758"/>
+          <rect x="42" y="75" width="15" height="1" fill="#C09F6A"/> <!-- waistband highlight -->
+          <rect x="42" y="78" width="15" height="1" fill="#7A6238"/> <!-- shorts hem shadow -->
+          <!-- Pocket lines -->
+          <rect x="44" y="76" width="1"  height="2" fill="#7A6238"/>
+          <rect x="54" y="76" width="1"  height="2" fill="#7A6238"/>
+          <!-- Inner thigh shadow between legs -->
+          <rect x="49" y="77" width="1"  height="2" fill="#7A6238"/>
+
+          <!-- Bare legs (calves, hairy-dad legs!) -->
+          <rect x="44" y="79" width="4"  height="7" fill="#FDB99B"/>
+          <rect x="51" y="79" width="4"  height="7" fill="#FDB99B"/>
+          <!-- Knee shadow -->
+          <rect x="44" y="81" width="4"  height="1" fill="#E89070"/>
+          <rect x="51" y="81" width="4"  height="1" fill="#E89070"/>
+          <!-- Leg hair speckles -->
+          <rect x="45" y="83" width="1"  height="1" fill="#3A2210"/>
+          <rect x="47" y="84" width="1"  height="1" fill="#3A2210"/>
+          <rect x="52" y="83" width="1"  height="1" fill="#3A2210"/>
+          <rect x="54" y="84" width="1"  height="1" fill="#3A2210"/>
+
+          <!-- Sneakers -->
+          <rect x="43" y="86" width="6"  height="1" fill="#FFFFFF"/>
+          <rect x="50" y="86" width="6"  height="1" fill="#FFFFFF"/>
+          <rect x="43" y="87" width="6"  height="2" fill="#2C2C2C"/>
+          <rect x="50" y="87" width="6"  height="2" fill="#2C2C2C"/>
+
+          <!-- =========================================================
+               SON / BRANDON  (adult, dirty blonde hair, gray t-shirt,
+               holding a beer up to drink)
+               Center ~x=25, feet at y=88
+               ========================================================= -->
+          <!-- Dirty blonde hair with middle part -->
+          <!-- Top tufts on each side of the part (gap at x=25) -->
+          <rect x="22" y="58" width="3" height="1" fill="#9B7B3E"/>
+          <rect x="26" y="58" width="3" height="1" fill="#9B7B3E"/>
+          <!-- Hair sweeping wider on each side -->
+          <rect x="20" y="59" width="5" height="1" fill="#B89358"/>
+          <rect x="26" y="59" width="5" height="1" fill="#B89358"/>
+          <!-- Bangs sweeping down to the sides (forehead exposed in middle) -->
+          <rect x="20" y="60" width="4" height="1" fill="#B89358"/>
+          <rect x="27" y="60" width="4" height="1" fill="#B89358"/>
+          <!-- Bangs onto edges of forehead -->
+          <rect x="20" y="61" width="3" height="1" fill="#B89358"/>
+          <rect x="28" y="61" width="3" height="1" fill="#B89358"/>
+          <!-- Sideburns -->
+          <rect x="20" y="62" width="1" height="1" fill="#B89358"/>
+          <rect x="30" y="62" width="1" height="1" fill="#B89358"/>
+          <!-- Hair highlights (lighter blonde streaks) -->
+          <rect x="22" y="59" width="2" height="1" fill="#D4B070"/>
+          <rect x="27" y="59" width="2" height="1" fill="#D4B070"/>
+
+          <!-- Head -->
+          <rect x="21" y="61" width="9"  height="6" fill="#FDB99B"/>
+          <!-- Ears -->
+          <rect x="20" y="63" width="1"  height="2" fill="#E89070"/>
+          <rect x="30" y="63" width="1"  height="2" fill="#E89070"/>
+          <!-- Eyes -->
+          <rect x="23" y="63" width="1"  height="1" fill="#1A1A1A"/>
+          <rect x="27" y="63" width="1"  height="1" fill="#1A1A1A"/>
+          <!-- A slight grin (open-ish, mid-sip) -->
+          <rect x="24" y="66" width="3"  height="1" fill="#8B4513"/>
+          <!-- Neck -->
+          <rect x="23" y="67" width="5"  height="1" fill="#E89070"/>
+
+          <!-- Gray t-shirt -->
+          <rect x="18" y="68" width="15" height="1" fill="#3A3A3A"/>
+          <rect x="17" y="69" width="17" height="5" fill="#5A5A5A"/>
+          <!-- T-shirt neckline -->
+          <rect x="24" y="68" width="3"  height="1" fill="#3A3A3A"/>
+          <!-- Shirt seam highlight -->
+          <rect x="25" y="70" width="1"  height="3" fill="#7A7A7A"/>
+          <!-- Shirt hem shadow -->
+          <rect x="17" y="73" width="17" height="1" fill="#3A3A3A"/>
+
+          <!-- LEFT arm hanging straight down at side, holding beer -->
+          <!-- T-shirt sleeve hem -->
+          <rect x="16" y="69" width="1" height="3" fill="#5A5A5A"/>
+          <!-- Forearm skin -->
+          <rect x="16" y="72" width="1" height="4" fill="#FDB99B"/>
+          <!-- Hand wrapping bottle neck -->
+          <rect x="15" y="76" width="2" height="1" fill="#FDB99B"/>
+
+          <!-- BEER bottle dangling at son's side -->
+          <!-- Cap (visible above hand) -->
+          <rect x="15" y="74" width="1" height="1" fill="#D4A030"/>
+          <!-- Neck (between cap and hand) -->
+          <rect x="15" y="75" width="1" height="1" fill="#3F2310"/>
+          <!-- Bottle body hanging below the hand -->
+          <rect x="14" y="77" width="3" height="4" fill="#5A3520"/>
+          <!-- Label -->
+          <rect x="14" y="78" width="3" height="2" fill="#F4D670"/>
+          <rect x="15" y="78" width="1" height="1" fill="#C58B3A"/>
+          <!-- Glass highlight + shadow -->
+          <rect x="14" y="77" width="1" height="3" fill="#8B5A35" opacity="0.7"/>
+          <rect x="16" y="77" width="1" height="3" fill="#3F2310" opacity="0.5"/>
+
+          <!-- RIGHT arm hanging at side -->
+          <rect x="33" y="70" width="1"  height="4" fill="#5A5A5A"/>
+          <rect x="33" y="74" width="1"  height="2" fill="#FDB99B"/>
+
+          <!-- Belt -->
+          <rect x="17" y="74" width="17" height="1" fill="#2A1810"/>
+          <rect x="25" y="74" width="1"  height="1" fill="#D4A030"/>  <!-- buckle -->
+
+          <!-- Khaki / olive cargo shorts (slightly different shade from dad) -->
+          <rect x="18" y="75" width="15" height="4" fill="#7A6A40"/>
+          <rect x="18" y="75" width="15" height="1" fill="#948054"/>
+          <rect x="18" y="78" width="15" height="1" fill="#564A28"/>
+          <!-- Pocket lines -->
+          <rect x="20" y="76" width="1"  height="2" fill="#564A28"/>
+          <rect x="30" y="76" width="1"  height="2" fill="#564A28"/>
+          <!-- Inner thigh shadow between legs -->
+          <rect x="25" y="77" width="1"  height="2" fill="#564A28"/>
+
+          <!-- Bare legs -->
+          <rect x="20" y="79" width="4"  height="7" fill="#FDB99B"/>
+          <rect x="27" y="79" width="4"  height="7" fill="#FDB99B"/>
+          <!-- Knee shadow -->
+          <rect x="20" y="81" width="4"  height="1" fill="#E89070"/>
+          <rect x="27" y="81" width="4"  height="1" fill="#E89070"/>
+
+          <!-- Sneakers -->
+          <rect x="19" y="86" width="6"  height="1" fill="#FFFFFF"/>
+          <rect x="26" y="86" width="6"  height="1" fill="#FFFFFF"/>
+          <rect x="19" y="87" width="6"  height="2" fill="#2C2C2C"/>
+          <rect x="26" y="87" width="6"  height="2" fill="#2C2C2C"/>
+
+          <!-- Foreground grass blades for depth -->
+          <g fill="#2A4012">
+            <rect x="36" y="89" width="1"  height="1"/>
+            <rect x="50" y="89" width="1"  height="1"/>
+            <rect x="62" y="89" width="1"  height="1"/>
+            <rect x="86" y="89" width="1"  height="1"/>
+            <rect x="100" y="89" width="1" height="1"/>
+          </g>
+
+        </svg>
+      </div>
+
+      <div class="message-panel">
+        <div class="screw tl"></div>
+        <div class="screw tr"></div>
+        <div class="screw bl"></div>
+        <div class="screw br"></div>
+        <h2>DEAR DADDY,</h2>
+        <p>Happy birthday! Hope you're enjoying your stay so far at Disney.</p>
+        <p class="signoff">LOVE YOU!<br/>&mdash; BRANDON</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>
